@@ -56,6 +56,7 @@
 		412D96A42B7EDB070096B039 /* SFT */ = {
 			isa = PBXGroup;
 			children = (
+				D4DBAA962B7EE0D90098CA8F /* Screens */,
 				412D96A52B7EDB070096B039 /* SFTApp.swift */,
 				412D96A72B7EDB070096B039 /* Persistence.swift */,
 				412D96AC2B7EDB070096B039 /* ContentView.swift */,
@@ -73,6 +74,13 @@
 				412D96B22B7EDB0A0096B039 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D4DBAA962B7EE0D90098CA8F /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
