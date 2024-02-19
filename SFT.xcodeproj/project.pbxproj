@@ -14,6 +14,8 @@
 		412D96AF2B7EDB0A0096B039 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 412D96AE2B7EDB0A0096B039 /* Assets.xcassets */; };
 		412D96B32B7EDB0A0096B039 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 412D96B22B7EDB0A0096B039 /* Preview Assets.xcassets */; };
 		41A9B0C32B7EE3C200479902 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B0C22B7EE3C200479902 /* HomeScreen.swift */; };
+		41A9B0D12B81F1EB00479902 /* test_homescreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B0D02B81F1EB00479902 /* test_homescreen.swift */; };
+		41A9B0D32B82B22600479902 /* Demo_Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B0D22B82B22600479902 /* Demo_Views.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		412D96B02B7EDB0A0096B039 /* SFT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SFT.entitlements; sourceTree = "<group>"; };
 		412D96B22B7EDB0A0096B039 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		41A9B0C22B7EE3C200479902 /* HomeScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeScreen.swift; path = Screens/HomeScreen.swift; sourceTree = "<group>"; };
+		41A9B0D02B81F1EB00479902 /* test_homescreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_homescreen.swift; sourceTree = "<group>"; };
+		41A9B0D22B82B22600479902 /* Demo_Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo_Views.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,8 @@
 		D4DBAA962B7EE0D90098CA8F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				41A9B0D02B81F1EB00479902 /* test_homescreen.swift */,
+				41A9B0D22B82B22600479902 /* Demo_Views.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -161,6 +167,8 @@
 				412D96A82B7EDB070096B039 /* Persistence.swift in Sources */,
 				412D96AD2B7EDB070096B039 /* ContentView.swift in Sources */,
 				412D96AB2B7EDB070096B039 /* SFT.xcdatamodeld in Sources */,
+				41A9B0D32B82B22600479902 /* Demo_Views.swift in Sources */,
+				41A9B0D12B81F1EB00479902 /* test_homescreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +293,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Demo_Color_Set;
 				CODE_SIGN_ENTITLEMENTS = SFT/SFT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -321,7 +329,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Demo_Color_Set;
 				CODE_SIGN_ENTITLEMENTS = SFT/SFT.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
