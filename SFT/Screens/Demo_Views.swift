@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct Demo_View_Deadlift: View {
+    @Environment(\.managedObjectContext) private var DLContext
+    
+//    @FetchRequest(
+//        sortDescriptors: [NSSortDescriptor(keyPath: \Deadlift.timestamp,ascending:true)],animation: .default)
+    
     var body: some View {
         VStack{
             Text("Deadlift")
@@ -19,12 +24,23 @@ struct Demo_View_Deadlift: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-            Label("Add New Entry", systemImage: "plus")
+            Button(action:addItem){
+                Label("Add New Entry", systemImage: "plus")
+            }
+            .buttonStyle(.bordered)
+        }
+    }
+    private func addItem(){
+        withAnimation{
+            let newItem = Deadlift(context: DLContext)
+            
+            
         }
     }
 }
 
 struct Demo_View_Bench: View {
+    @Environment(\.managedObjectContext) private var BContext
     var body: some View {
         VStack{
             Text("Bench")
@@ -33,16 +49,27 @@ struct Demo_View_Bench: View {
                 .padding()
             Image("Demo_Graph_2")
                 .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-            Label("Add New Entry", systemImage: "plus")
+                .aspectRatio(contentMode: .fit)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+            Button(action:addItem){
+                Label("Add New Entry", systemImage: "plus")
+            }
+            .buttonStyle(.bordered)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
     }
+    private func addItem(){
+        withAnimation{
+            let newItem = Bench(context: BContext)
+            
+            
+        }
+    }
 }
 struct Demo_View_Squat: View {
+    @Environment(\.managedObjectContext) private var SContext
     var body: some View {
         VStack{
             Text("Squat")
@@ -54,11 +81,23 @@ struct Demo_View_Squat: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-            Label("Add New Entry", systemImage: "plus")
+            Button(action:addItem){
+                Label("Add New Entry", systemImage: "plus")
+            }
+            .buttonStyle(.bordered)
+        }
+    }
+    private func addItem(){
+        withAnimation{
+            let newItem = Squat(context: SContext)
+            
+            
         }
     }
 }
 
-#Preview {
-    Demo_View_Deadlift()
-}
+
+
+//#Preview {
+//    Demo_View_Deadlift()
+//}
