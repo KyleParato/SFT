@@ -9,14 +9,15 @@ import SwiftUI
 
 struct test_homescreen: View {
     var body: some View {
-        TabView {
-            
-            Demo_View_Squat()
-            Demo_View_Bench()
-            Demo_View_Deadlift()
+        VStack{
+            TabView {
+                Demo_View_Squat()
+                Demo_View_Bench()
+                Demo_View_Deadlift()
+            }
+            .tabViewStyle(.page(indexDisplayMode: .always))
+            .indexViewStyle(.page(backgroundDisplayMode: .always))
         }
-        .tabViewStyle(.page(indexDisplayMode: .always))
-        .indexViewStyle(.page(backgroundDisplayMode: .always))
     }
 }
 
