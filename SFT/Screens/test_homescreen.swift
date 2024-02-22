@@ -16,7 +16,6 @@ struct test_homescreen: View {
                     Demo_View_Squat().tag(1)
                     Demo_View_Bench().tag(2)
                     Demo_View_Deadlift().tag(3)
-                    Spacer()
                 }
                 .tabViewStyle(.page(indexDisplayMode: .always))
                 .indexViewStyle(.page(backgroundDisplayMode: .never))
