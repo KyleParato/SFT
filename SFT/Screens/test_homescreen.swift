@@ -10,28 +10,33 @@ import SwiftUI
 struct test_homescreen: View {
     @State var tag: Int = 0
     var body: some View {
-        VStack{
-            TabView(selection:$tag) {
-                Demo_View_Squat().tag(1)
-                Demo_View_Bench().tag(2)
-                Demo_View_Deadlift().tag(3)
+        NavigationStack{
+            VStack{
+                TabView(selection:$tag) {
+                    Demo_View_Squat().tag(1)
+                    Demo_View_Bench().tag(2)
+                    Demo_View_Deadlift().tag(3)
+                    Spacer()
+                }
+                .tabViewStyle(.page(indexDisplayMode: .always))
+                .indexViewStyle(.page(backgroundDisplayMode: .never))
+                Spacer()
             }
-            .tabViewStyle(.page(indexDisplayMode: .always))
-            .indexViewStyle(.page(backgroundDisplayMode: .never))
-        }
-        .toolbar{
-            #if os(iOS)
-            ToolbarItem(placement: .navigationBarLeading){
-                Button(action: search_exercises){
-                    Label("Search", systemImage: "magnifyingglass")
+            .toolbar{
+#if os(iOS)
+                ToolbarItem(placement: .navigationBarLeading){
+                    Button(action: search_exercises){
+                        Label("Search", systemImage: "magnifyingglass")
+                    }
+                }
+#endif
+                ToolbarItem(placement: .navigationBarTrailing){
+                    Button(action: hamburger_menu){
+                        Label("Menu", systemImage: "sidebar.right")
+                    }
                 }
             }
-            #endif
-            ToolbarItem(placement: .navigationBarTrailing){
-                Button(action: hamburger_menu){
-                    Label("Menu", systemImage: "sidebar.right")
-                }
-            }
+            Spacer()
         }
     }
     private func search_exercises(){

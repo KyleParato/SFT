@@ -29,6 +29,7 @@ struct Demo_View_Deadlift: View {
             }
             .buttonStyle(.bordered)
         }
+        Spacer()
     }
     private func addItem(){
         withAnimation{
@@ -42,23 +43,25 @@ struct Demo_View_Deadlift: View {
 struct Demo_View_Bench: View {
     @Environment(\.managedObjectContext) private var BContext
     var body: some View {
-        VStack{
-            Text("Bench")
-                .font(.title)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-            Image("Demo_Graph_2")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-            Button(action:addItem){
-                Label("Add New Entry", systemImage: "plus")
+            VStack{
+                Text("Bench")
+                    .font(.title)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Image("Demo_Graph_2")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Button(action:addItem){
+                    Label("Add New Entry", systemImage: "plus")
+                }
+                .buttonStyle(.bordered)
             }
-            .buttonStyle(.bordered)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
+            Spacer()
+            
     }
     private func addItem(){
         withAnimation{
@@ -86,6 +89,7 @@ struct Demo_View_Squat: View {
             }
             .buttonStyle(.bordered)
         }
+        Spacer()
     }
     private func addItem(){
         withAnimation{
@@ -98,6 +102,6 @@ struct Demo_View_Squat: View {
 
 
 
-//#Preview {
-//    Demo_View_Deadlift()
-//}
+#Preview {
+    Demo_View_Squat()
+}
