@@ -2,14 +2,25 @@
 //  WorkOutListView.swift
 //  SFT
 //
-//  Created by csuftitan on 2/21/24.
+//  Created by Jovani Antonio on 2/21/24.
 //
 
 import SwiftUI
 
 struct WorkOutListView: View {
+    let workout = workList
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            List {
+                ForEach(workout, id: \.self){ workOut in
+                    NavigationLink(destination: Text(workOut)){
+                        Image(systemName: "scalemass")
+                        Text(workOut)
+                    }.padding()
+                }
+                .navigationTitle("Select Workout")
+            }
+        }
     }
 }
 
