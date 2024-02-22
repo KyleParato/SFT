@@ -12,48 +12,37 @@ struct HomeScreen: View {
     @State private var showAlert = false
     @State private var workout = ""
     
-    let workoutList = [
-        "Workout 1",
-        "Workout 2",
-        "Workout 3",
+    @State var workoutList: [String] = [
+        "Workout 1", "Workout 2", "Workout 3"
     ]
     
     var body: some View {
         NavigationStack {
             ZStack {
                 VStack{
-                    HStack{
-                        Image("Search_LM")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40)
-                            .padding(.vertical, 30)
-                        
-                        Image("In_App_Icon")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 75, height: 75)
-                            .cornerRadius(6)
-                            .padding(.horizontal, 70)
-                        
-                        Image("Settings_LM")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40, alignment: .trailing)
-                            .padding(.vertical, 30)
-                    }
-                    .frame(width: 350, height: 100)
-                    .cornerRadius(20)
-                    .padding(.vertical, 10)
-                    
-                    List {
-                        ForEach(workoutList, id: \.self){ workout in
-                            NavigationLink(destination: Text(workout)){
-                                Text(workout)
-                            }.padding(.vertical, 5)
+                    //List view for workouts
+                    NavigationView {
+                        List {
+                            //Loop to create list with nav links to different pages
+                            ForEach(workoutList, id: \.self){ workout in
+                                NavigationLink(destination: Exercise_List_View()){
+                                    Image(systemName: "scalemass")
+                                    Text(workout)
+                                }.padding(.vertical, 5)
+                            }
+                            .onDelete(perform: delete)
                         }
                     }
+                    .navigationTitle("Workouts")
+                    /*.navigationBarItems(
+                        leading: Button(action: search_exercises){
+                            Label("Search", systemImage: "magnifyingglass")
+                        },
+                        trailing: Button(action: hamburger_menu){
+                            Label("Menu", systemImage: "sidebar.right")
+                        })*/
                     
+                    //Button for adding workouts
                     Button {
                         showAlert = true
                     }label: {
@@ -68,16 +57,42 @@ struct HomeScreen: View {
                     .alert("Enter new workout", isPresented: $showAlert, actions: {
                                 TextField("Username", text: $workout)
 
-                                Button("Add workout", action: {})
+                        Button("Add workout", action: {workoutList.append(workout)})
                                 Button("Cancel", role: .cancel, action: {})
                             }, message: {
-                                Text("New workout has been added.")
                             })
                     
                 }
+                .toolbar{
+                    #if os(iOS)
+                    ToolbarItem(placement: .navigationBarLeading){
+                        Button(action: search_exercises){
+                            Label("Search", systemImage: "magnifyingglass")
+                        }
+                    }
+                    #endif
+                    ToolbarItem(placement: .navigationBarTrailing){
+                        Button(action: hamburger_menu){
+                            Label("Menu", systemImage: "sidebar.right")
+                        }
+                    }
+                }
             }
         }
+}
+    
+    //func for deleting list items
+    func delete(indexSet: IndexSet){
+        workoutList.remove(atOffsets: indexSet)
     }
+    
+    private func search_exercises(){
+        
+    }
+    private func hamburger_menu(){
+        
+    }
+    
 }
 
 #Preview {
