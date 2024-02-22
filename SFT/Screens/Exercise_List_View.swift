@@ -23,9 +23,29 @@ struct Exercise_List_View: View {
                     Image(systemName: "dumbbell.fill")
                     Text("Deadlift")
                 }
-            }.padding()
+            }
                 .navigationTitle("Exercises")
         }
+        .toolbar{
+            #if os(iOS)
+            ToolbarItem(placement: .navigationBarLeading){
+                Button(action: search_exercises){
+                    Label("Search", systemImage: "magnifyingglass")
+                }
+            }
+            #endif
+            ToolbarItem(placement: .navigationBarTrailing){
+                Button(action: hamburger_menu){
+                    Label("Menu", systemImage: "sidebar.right")
+                }
+            }
+        }
+    }
+    private func search_exercises(){
+        
+    }
+    private func hamburger_menu(){
+        
     }
 }
 
