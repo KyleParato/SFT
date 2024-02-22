@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Exercise_List_View: View {
     var body: some View {
-        NavigationView{
+        NavigationStack{
             List{
                 NavigationLink(destination: test_homescreen(tag:1)){
                     Image(systemName: "dumbbell.fill")

@@ -21,7 +21,7 @@ struct HomeScreen: View {
             ZStack {
                 VStack{
                     //List view for workouts
-                    NavigationView {
+                   // NavigationView {
                         List {
                             //Loop to create list with nav links to different pages
                             ForEach(workoutList, id: \.self){ workout in
@@ -32,7 +32,7 @@ struct HomeScreen: View {
                             }
                             .onDelete(perform: delete)
                         }
-                    }
+                    //}
                     .navigationTitle("Workouts")
                     /*.navigationBarItems(
                         leading: Button(action: search_exercises){
