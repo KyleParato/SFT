@@ -14,22 +14,25 @@ struct Demo_View_Deadlift: View {
 //        sortDescriptors: [NSSortDescriptor(keyPath: \Deadlift.timestamp,ascending:true)],animation: .default)
     
     var body: some View {
-        VStack{
-            Text("Deadlift")
-                .font(.title)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-            Image("Demo_Graph_1")
-                .resizable()
+        NavigationStack{
+            VStack{
+                Text("Deadlift")
+                    .font(.title)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+                Image("Demo_Graph_1")
+                    .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-            Button(action:addItem){
-                Label("Add New Entry", systemImage: "plus")
+                Button(action:addItem){
+                    Label("Add New Entry", systemImage: "plus")
+                }
+                .buttonStyle(.bordered)
             }
-            .buttonStyle(.bordered)
+            Spacer()
         }
-        Spacer()
+        
     }
     private func addItem(){
         withAnimation{
@@ -43,6 +46,7 @@ struct Demo_View_Deadlift: View {
 struct Demo_View_Bench: View {
     @Environment(\.managedObjectContext) private var BContext
     var body: some View {
+        NavigationStack{
             VStack{
                 Text("Bench")
                     .font(.title)
@@ -57,10 +61,11 @@ struct Demo_View_Bench: View {
                     Label("Add New Entry", systemImage: "plus")
                 }
                 .buttonStyle(.bordered)
+                Spacer()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
-            Spacer()
+        }
             
     }
     private func addItem(){
@@ -74,22 +79,26 @@ struct Demo_View_Bench: View {
 struct Demo_View_Squat: View {
     @Environment(\.managedObjectContext) private var SContext
     var body: some View {
-        VStack{
-            Text("Squat")
-                .font(.title)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-            Image("Demo_Graph_3")
-                .resizable()
+        NavigationStack{
+            VStack{
+                Text("Squat")
+                    .font(.title)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+                Image("Demo_Graph_3")
+                    .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-            Button(action:addItem){
-                Label("Add New Entry", systemImage: "plus")
+                Button(action:addItem){
+                    Label("Add New Entry", systemImage: "plus")
+                }
+                .buttonStyle(.bordered)
             }
-            .buttonStyle(.bordered)
+            Spacer()
         }
-        Spacer()
+        
+        
     }
     private func addItem(){
         withAnimation{

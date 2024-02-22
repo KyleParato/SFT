@@ -20,6 +20,7 @@ struct test_homescreen: View {
                 .tabViewStyle(.page(indexDisplayMode: .always))
                 .indexViewStyle(.page(backgroundDisplayMode: .never))
             }
+        }
             .toolbar{
 #if os(iOS)
                 ToolbarItem(placement: .navigationBarLeading){
@@ -34,8 +35,6 @@ struct test_homescreen: View {
                     }
                 }
             }
-            Spacer()
-        }
     }
     private func search_exercises(){
         
