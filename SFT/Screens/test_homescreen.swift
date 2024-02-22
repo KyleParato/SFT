@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct test_homescreen: View {
+    @State var tag: Int = 0
     var body: some View {
         VStack{
-            TabView {
+            TabView(selection:$tag) {
                 Demo_View_Squat().tag(1)
                 Demo_View_Bench().tag(2)
                 Demo_View_Deadlift().tag(3)
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
-            .indexViewStyle(.page(backgroundDisplayMode: .always))
+            .indexViewStyle(.page(backgroundDisplayMode: .never))
         }
         .toolbar{
             #if os(iOS)
