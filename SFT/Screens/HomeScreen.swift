@@ -57,7 +57,7 @@ struct HomeScreen: View {
                     .alert("Enter new workout", isPresented: $showAlert, actions: {
                                 TextField("Workout", text: $workout)
 
-                        Button("Search", action: {})
+                        Button("Add new workout", action: {workoutList.append(workout)})
                         Button("Cancel", role: .cancel, action: {})
                             }, message: {
                     })

@@ -19,7 +19,6 @@ struct test_homescreen: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .always))
                 .indexViewStyle(.page(backgroundDisplayMode: .never))
-                Spacer()
             }
             .toolbar{
 #if os(iOS)
