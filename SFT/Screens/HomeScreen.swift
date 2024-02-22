@@ -55,12 +55,12 @@ struct HomeScreen: View {
                             .cornerRadius(20)
                     }
                     .alert("Enter new workout", isPresented: $showAlert, actions: {
-                                TextField("Username", text: $workout)
+                                TextField("Workout", text: $workout)
 
-                        Button("Add workout", action: {workoutList.append(workout)})
-                                Button("Cancel", role: .cancel, action: {})
+                        Button("Search", action: {})
+                        Button("Cancel", role: .cancel, action: {})
                             }, message: {
-                            })
+                    })
                     
                 }
                 .toolbar{
