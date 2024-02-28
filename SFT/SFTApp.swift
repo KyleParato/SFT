@@ -15,7 +15,9 @@ struct SFTApp: App {
         WindowGroup {
 //            ContentView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            HomeScreen()
+            
+//            HomeScreen()
+            Table_Tests().environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

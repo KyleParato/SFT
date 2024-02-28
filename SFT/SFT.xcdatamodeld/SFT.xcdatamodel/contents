@@ -10,14 +10,22 @@
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="weight" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
     </entity>
-    <entity name="Exercises" representedClassName="Exercises" syncable="YES" codeGenerationType="class">
+    <entity name="Exercise_Static" representedClassName="Exercise_Static" syncable="YES">
+        <attribute name="exercise_name" optional="YES" attributeType="String"/>
+        <attribute name="reps" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="weight" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Exercise_Time" representedClassName="Exercise_Time" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="exercise_name" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exercises"/>
+    </entity>
+    <entity name="Exercises" representedClassName="Exercises" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="workout" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Workouts" inverseName="exercise" inverseEntity="Workouts">
-            <userInfo>
-                <entry key="key" value="value"/>
-            </userInfo>
-        </relationship>
+        <attribute name="workout_name" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -27,17 +35,7 @@
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="weight" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
     </entity>
-    <entity name="Static" representedClassName="Static" syncable="YES" codeGenerationType="class">
+    <entity name="Workouts" representedClassName="Workouts" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="reps" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="weight" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
-    </entity>
-    <entity name="Time" representedClassName="Time" syncable="YES" codeGenerationType="class">
-        <attribute name="duration" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="Workouts" representedClassName="Workouts" syncable="YES" codeGenerationType="class">
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exercises" inverseName="workout" inverseEntity="Exercises"/>
     </entity>
 </model>

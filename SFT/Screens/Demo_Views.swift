@@ -36,7 +36,7 @@ struct Demo_View_Deadlift: View {
     }
     private func addItem(){
         withAnimation{
-            let newItem = Deadlift(context: DLContext)
+            //let newItem = Deadlift(context: DLContext)
             
             
         }
@@ -70,7 +70,7 @@ struct Demo_View_Bench: View {
     }
     private func addItem(){
         withAnimation{
-            let newItem = Bench(context: BContext)
+            //let newItem = Bench(context: BContext)
             
             
         }
@@ -102,7 +102,7 @@ struct Demo_View_Squat: View {
     }
     private func addItem(){
         withAnimation{
-            let newItem = Squat(context: SContext)
+            //let newItem = Squat(context: SContext)
             
             
         }
