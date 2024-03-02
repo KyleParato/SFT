@@ -20,14 +20,14 @@
 		41A9B1042B8C336800479902 /* Table_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B1012B8C336800479902 /* Table_Tests.swift */; };
 		41A9B1052B8C336800479902 /* Table_Test_Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B1022B8C336800479902 /* Table_Test_Exercise.swift */; };
 		41A9B1062B8C336800479902 /* Table_Test_Exercise_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B1032B8C336800479902 /* Table_Test_Exercise_View.swift */; };
-		41A9B12F2B8E89D200479902 /* Workouts+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B1272B8E89D200479902 /* Workouts+CoreDataClass.swift */; };
-		41A9B1302B8E89D200479902 /* Workouts+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B1282B8E89D200479902 /* Workouts+CoreDataProperties.swift */; };
-		41A9B1332B8E89D200479902 /* Exercises+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B12B2B8E89D200479902 /* Exercises+CoreDataClass.swift */; };
-		41A9B1342B8E89D200479902 /* Exercises+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B12C2B8E89D200479902 /* Exercises+CoreDataProperties.swift */; };
-		41A9B1352B8E89D200479902 /* Exercise_Time+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B12D2B8E89D200479902 /* Exercise_Time+CoreDataClass.swift */; };
-		41A9B1362B8E89D200479902 /* Exercise_Time+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B12E2B8E89D200479902 /* Exercise_Time+CoreDataProperties.swift */; };
-		41A9B1392B8EB5B000479902 /* Exercise_Static+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B1372B8EB5B000479902 /* Exercise_Static+CoreDataClass.swift */; };
-		41A9B13A2B8EB5B000479902 /* Exercise_Static+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B1382B8EB5B000479902 /* Exercise_Static+CoreDataProperties.swift */; };
+		41A9B1432B92B06E00479902 /* Workouts+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B13B2B92B06E00479902 /* Workouts+CoreDataClass.swift */; };
+		41A9B1442B92B06E00479902 /* Workouts+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B13C2B92B06E00479902 /* Workouts+CoreDataProperties.swift */; };
+		41A9B1452B92B06E00479902 /* Exercise_Static+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B13D2B92B06E00479902 /* Exercise_Static+CoreDataClass.swift */; };
+		41A9B1462B92B06E00479902 /* Exercise_Static+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B13E2B92B06E00479902 /* Exercise_Static+CoreDataProperties.swift */; };
+		41A9B1472B92B06E00479902 /* Exercises+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B13F2B92B06E00479902 /* Exercises+CoreDataClass.swift */; };
+		41A9B1482B92B06E00479902 /* Exercises+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B1402B92B06E00479902 /* Exercises+CoreDataProperties.swift */; };
+		41A9B1492B92B06E00479902 /* Exercise_Time+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B1412B92B06E00479902 /* Exercise_Time+CoreDataClass.swift */; };
+		41A9B14A2B92B06E00479902 /* Exercise_Time+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B1422B92B06E00479902 /* Exercise_Time+CoreDataProperties.swift */; };
 		7AE10C462B871BFC004B6F07 /* WorkOutList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE10C452B871BFC004B6F07 /* WorkOutList.swift */; };
 		7AE10C482B871C09004B6F07 /* WorkOutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE10C472B871C09004B6F07 /* WorkOutListView.swift */; };
 /* End PBXBuildFile section */
@@ -48,14 +48,14 @@
 		41A9B1012B8C336800479902 /* Table_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table_Tests.swift; sourceTree = "<group>"; };
 		41A9B1022B8C336800479902 /* Table_Test_Exercise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table_Test_Exercise.swift; sourceTree = "<group>"; };
 		41A9B1032B8C336800479902 /* Table_Test_Exercise_View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table_Test_Exercise_View.swift; sourceTree = "<group>"; };
-		41A9B1272B8E89D200479902 /* Workouts+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workouts+CoreDataClass.swift"; sourceTree = "<group>"; };
-		41A9B1282B8E89D200479902 /* Workouts+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workouts+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		41A9B12B2B8E89D200479902 /* Exercises+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercises+CoreDataClass.swift"; sourceTree = "<group>"; };
-		41A9B12C2B8E89D200479902 /* Exercises+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercises+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		41A9B12D2B8E89D200479902 /* Exercise_Time+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise_Time+CoreDataClass.swift"; sourceTree = "<group>"; };
-		41A9B12E2B8E89D200479902 /* Exercise_Time+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise_Time+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		41A9B1372B8EB5B000479902 /* Exercise_Static+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise_Static+CoreDataClass.swift"; sourceTree = "<group>"; };
-		41A9B1382B8EB5B000479902 /* Exercise_Static+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise_Static+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		41A9B13B2B92B06E00479902 /* Workouts+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workouts+CoreDataClass.swift"; sourceTree = "<group>"; };
+		41A9B13C2B92B06E00479902 /* Workouts+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workouts+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		41A9B13D2B92B06E00479902 /* Exercise_Static+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise_Static+CoreDataClass.swift"; sourceTree = "<group>"; };
+		41A9B13E2B92B06E00479902 /* Exercise_Static+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise_Static+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		41A9B13F2B92B06E00479902 /* Exercises+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercises+CoreDataClass.swift"; sourceTree = "<group>"; };
+		41A9B1402B92B06E00479902 /* Exercises+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercises+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		41A9B1412B92B06E00479902 /* Exercise_Time+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise_Time+CoreDataClass.swift"; sourceTree = "<group>"; };
+		41A9B1422B92B06E00479902 /* Exercise_Time+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise_Time+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7AE10C452B871BFC004B6F07 /* WorkOutList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutList.swift; sourceTree = "<group>"; };
 		7AE10C472B871C09004B6F07 /* WorkOutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,14 +114,14 @@
 		41A9B0D82B8B25A200479902 /* Tables */ = {
 			isa = PBXGroup;
 			children = (
-				41A9B1372B8EB5B000479902 /* Exercise_Static+CoreDataClass.swift */,
-				41A9B1382B8EB5B000479902 /* Exercise_Static+CoreDataProperties.swift */,
-				41A9B1272B8E89D200479902 /* Workouts+CoreDataClass.swift */,
-				41A9B1282B8E89D200479902 /* Workouts+CoreDataProperties.swift */,
-				41A9B12B2B8E89D200479902 /* Exercises+CoreDataClass.swift */,
-				41A9B12C2B8E89D200479902 /* Exercises+CoreDataProperties.swift */,
-				41A9B12D2B8E89D200479902 /* Exercise_Time+CoreDataClass.swift */,
-				41A9B12E2B8E89D200479902 /* Exercise_Time+CoreDataProperties.swift */,
+				41A9B13B2B92B06E00479902 /* Workouts+CoreDataClass.swift */,
+				41A9B13C2B92B06E00479902 /* Workouts+CoreDataProperties.swift */,
+				41A9B13D2B92B06E00479902 /* Exercise_Static+CoreDataClass.swift */,
+				41A9B13E2B92B06E00479902 /* Exercise_Static+CoreDataProperties.swift */,
+				41A9B13F2B92B06E00479902 /* Exercises+CoreDataClass.swift */,
+				41A9B1402B92B06E00479902 /* Exercises+CoreDataProperties.swift */,
+				41A9B1412B92B06E00479902 /* Exercise_Time+CoreDataClass.swift */,
+				41A9B1422B92B06E00479902 /* Exercise_Time+CoreDataProperties.swift */,
 				41A9B1032B8C336800479902 /* Table_Test_Exercise_View.swift */,
 				41A9B1022B8C336800479902 /* Table_Test_Exercise.swift */,
 				41A9B1012B8C336800479902 /* Table_Tests.swift */,
@@ -213,25 +213,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AE10C482B871C09004B6F07 /* WorkOutListView.swift in Sources */,
-				41A9B12F2B8E89D200479902 /* Workouts+CoreDataClass.swift in Sources */,
-				41A9B13A2B8EB5B000479902 /* Exercise_Static+CoreDataProperties.swift in Sources */,
+				41A9B1432B92B06E00479902 /* Workouts+CoreDataClass.swift in Sources */,
 				412D96A62B7EDB070096B039 /* SFTApp.swift in Sources */,
 				41A9B1062B8C336800479902 /* Table_Test_Exercise_View.swift in Sources */,
 				41A9B0C32B7EE3C200479902 /* HomeScreen.swift in Sources */,
-				41A9B1392B8EB5B000479902 /* Exercise_Static+CoreDataClass.swift in Sources */,
-				41A9B1342B8E89D200479902 /* Exercises+CoreDataProperties.swift in Sources */,
+				41A9B1482B92B06E00479902 /* Exercises+CoreDataProperties.swift in Sources */,
 				412D96A82B7EDB070096B039 /* Persistence.swift in Sources */,
 				7AE10C462B871BFC004B6F07 /* WorkOutList.swift in Sources */,
+				41A9B1462B92B06E00479902 /* Exercise_Static+CoreDataProperties.swift in Sources */,
 				412D96AD2B7EDB070096B039 /* ContentView.swift in Sources */,
-				41A9B1362B8E89D200479902 /* Exercise_Time+CoreDataProperties.swift in Sources */,
-				41A9B1332B8E89D200479902 /* Exercises+CoreDataClass.swift in Sources */,
+				41A9B14A2B92B06E00479902 /* Exercise_Time+CoreDataProperties.swift in Sources */,
+				41A9B1472B92B06E00479902 /* Exercises+CoreDataClass.swift in Sources */,
 				41A9B1042B8C336800479902 /* Table_Tests.swift in Sources */,
+				41A9B1452B92B06E00479902 /* Exercise_Static+CoreDataClass.swift in Sources */,
 				412D96AB2B7EDB070096B039 /* SFT.xcdatamodeld in Sources */,
 				41A9B0D32B82B22600479902 /* Demo_Views.swift in Sources */,
 				41A9B0D72B87B14000479902 /* Exercise_List_View.swift in Sources */,
-				41A9B1302B8E89D200479902 /* Workouts+CoreDataProperties.swift in Sources */,
+				41A9B1442B92B06E00479902 /* Workouts+CoreDataProperties.swift in Sources */,
 				41A9B1052B8C336800479902 /* Table_Test_Exercise.swift in Sources */,
-				41A9B1352B8E89D200479902 /* Exercise_Time+CoreDataClass.swift in Sources */,
+				41A9B1492B92B06E00479902 /* Exercise_Time+CoreDataClass.swift in Sources */,
 				41A9B0D12B81F1EB00479902 /* test_homescreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -359,9 +359,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Demo_Color_Set;
 				CODE_SIGN_ENTITLEMENTS = SFT/SFT.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SFT/Preview Content\"";
+				DEVELOPMENT_TEAM = FVY9KXDB7X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -380,9 +384,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = SFT.SFT;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = Beta1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -395,9 +401,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Demo_Color_Set;
 				CODE_SIGN_ENTITLEMENTS = SFT/SFT.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SFT/Preview Content\"";
+				DEVELOPMENT_TEAM = FVY9KXDB7X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -416,9 +426,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = SFT.SFT;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = Beta1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

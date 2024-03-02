@@ -2,7 +2,7 @@
 //  Workouts+CoreDataProperties.swift
 //  SFT
 //
-//  Created by Kyle Parato on 2/27/24.
+//  Created by Kyle Parato on 3/1/24.
 //
 //
 

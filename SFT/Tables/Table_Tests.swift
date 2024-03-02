@@ -10,43 +10,37 @@ import SwiftUI
 struct Table_Tests: View {
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
-    // Define fetch request
+    
+    // Fetch all workouts and store in workouts var
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Workouts.name, ascending: true)],
         animation: .default)
-    // Results of Fetch Request stored in workouts
     private var workouts: FetchedResults<Workouts>
     
     // variables used to control popup menu
     @State private var showAlert = false
     @State private var workout = ""
     
-    
+    // Workout View
     var body: some View {
         NavigationStack {
             ZStack {
                 VStack{
                     //List view for workouts
-                   // NavigationView {
+                   NavigationView {
                         List {
-                            //Loop to create list with nav links to different pages
+                            // Display all workouts
                             ForEach(workouts){ workout in
-                                NavigationLink(destination: Table_Test_Exercise(parent_workout: workout, workout_name: workout.name!)){
+                                // Navigate to exercise page, must pass workout name as string
+                                NavigationLink(destination: Table_Test_Exercise(workout_name: workout.name!)){
                                     Image(systemName: "scalemass")
                                     Text(workout.name!)
                                 }.padding(.vertical, 5)
                             }
                             .onDelete(perform: delete)
                         }
-                    //}
+                    }
                     .navigationTitle("Workouts")
-                    /*.navigationBarItems(
-                        leading: Button(action: search_exercises){
-                            Label("Search", systemImage: "magnifyingglass")
-                        },
-                        trailing: Button(action: hamburger_menu){
-                            Label("Menu", systemImage: "sidebar.right")
-                        })*/
                     
                     //Button for adding workouts
                     Button {
@@ -89,9 +83,12 @@ struct Table_Tests: View {
     // function for ceating workout in data base
     private func addWorkout(workout_name: String){
         withAnimation{
+            // Store new workout
             let newWorkout = Workouts(context: viewContext)
             newWorkout.name = workout_name
+            // Reset popup text box
             workout = ""
+            // Save workout to db
             do{
                 try viewContext.save()
             }catch{
@@ -119,7 +116,3 @@ struct Table_Tests: View {
         
     }
 }
-//
-//#Preview {
-//    Table_Tests()
-//}

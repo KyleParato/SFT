@@ -11,24 +11,28 @@ struct Table_Test_Exercise: View {
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
     
-//    @FetchRequest(sortDescriptors:[NSSortDescriptor(\Exercises.)],predicate: NSPredicate(format: "name == %@", workout_name))
+    // Fetch all exercises and store to exercises
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Exercises.name, ascending: true)],
         animation: .default)
     private var exercises: FetchedResults<Exercises>
     
-    @State var parent_workout: Workouts
+    // parent workout name
     @State var workout_name: String
     
     // variables used to control popup menu
     @State private var showAlert = false
     @State private var exercise = ""
     
+    // Exercise View
     var body: some View {
         NavigationStack{
             List{
+                // Display all workouts with parent workout name equal to
+                // the workout name passed into the view
                 ForEach(exercises){ exercise in
                     if(exercise.workout_name == workout_name){
+                        // Navigate to single exercise view, pass current exercise name as string
                         NavigationLink(destination: Table_Test_Exercise_View( current_exercise_name: exercise.name!)){
                             Image(systemName: "dumbbell.fill")
                             Text(exercise.name!)
@@ -78,11 +82,14 @@ struct Table_Test_Exercise: View {
     // function for ceating exercise in data base
     private func addExercise(exercise_name: String, exercise_type: Int16, workout_name: String){
         withAnimation{
+            // Create new exercise object and assign data
             let newExercise = Exercises(context: viewContext)
             newExercise.name = exercise_name
             newExercise.type = exercise_type
             newExercise.workout_name = workout_name
+            // Reset popup text field
             exercise = ""
+            // Save exercise to db
             do{
                 try viewContext.save()
             }catch{
@@ -107,7 +114,3 @@ struct Table_Test_Exercise: View {
         
     }
 }
-
-//#Preview {
-//    Table_Test_Exercise()
-//}

@@ -6,18 +6,23 @@
 //
 
 import SwiftUI
+import Foundation
+import Charts
 
 struct Table_Test_Exercise_View: View {
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
    
+    // Fetch all static exercise data and store it to var enteries
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Exercise_Static.timestamp, ascending: true)],
         animation: .default)
-    private var current_data : FetchedResults<Exercise_Static>
+    private var enteries : FetchedResults<Exercise_Static>
     
-    
+    // parent exercise name
     @State var current_exercise_name :String
+    
+    // Single exercise view
     var body: some View {
         NavigationStack{
             VStack{
@@ -25,12 +30,23 @@ struct Table_Test_Exercise_View: View {
                     .font(.title)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
-                Image("Demo_Graph_1")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                Button(action:{addEntry(weight:Float.random(in: 100..<200),reps:Int16.random(in: 1..<10))}){
+                
+                // Gather data from enteries
+                let to_plot = create_plot_data()
+                // Plot data to graph
+                Chart(to_plot, id:\.name){
+                    // Bar graph version
+                    BarMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
+                    
+                    // Original line graph with poits idea, uncomment to test
+//                    AreaMark( x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight))
+//                    PointMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
+                                
+                }
+                .aspectRatio(1,contentMode: .fit)
+                .padding(.horizontal,5)
+                // Create new entry button
+                Button(action:{addEntry(weight:Double.random(in: 100..<200),reps:Int16.random(in: 1..<10))}){
                     Label("Add New Entry", systemImage: "plus")
                 }
                 .buttonStyle(.bordered)
@@ -39,8 +55,12 @@ struct Table_Test_Exercise_View: View {
         }
     }
     
-    func addEntry(weight: Float,reps: Int16){
+    // Creating new entry
+    func addEntry(weight: Double,reps: Int16){
         withAnimation{
+            let formater = DateFormatter()
+                formater.dateStyle = .short
+            // Create new exercise entry
             let newEntry = Exercise_Static(context: viewContext)
             newEntry.exercise_name = current_exercise_name
             newEntry.weight = weight
@@ -55,9 +75,24 @@ struct Table_Test_Exercise_View: View {
         }
         
     }
+    // Filtering data and converting it to a plottable form
+    func create_plot_data() -> [data_value]{
+        var return_arr:[data_value] = []
+        for data in enteries{
+            if(data.exercise_name == current_exercise_name){
+                let point: data_value = data_value(name:current_exercise_name, weight:data.weight,timestamp:data.timestamp!.formatted(),reps:"\(data.reps)")
+                return_arr.append(point)
+            }
+        }
+        return return_arr
+    }
+                                                   
+    // Struct to store data for plotting, id is name, type string
+    struct data_value{
+        var name : String // id
+        var weight: Double
+        var timestamp : String
+        var reps: String
+    }
     
 }
-
-//#Preview {
-//    Table_Test_Exercise_View()
-//}
