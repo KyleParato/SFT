@@ -39,7 +39,7 @@ struct Table_Test_Exercise_View: View {
                     BarMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
                     
                     // Original line graph with poits idea, uncomment to test
-//                    AreaMark( x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight))
+//                    LineMark( x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight))
 //                    PointMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
                                 
                 }

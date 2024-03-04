@@ -13,6 +13,7 @@
 		412D96AD2B7EDB070096B039 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412D96AC2B7EDB070096B039 /* ContentView.swift */; };
 		412D96AF2B7EDB0A0096B039 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 412D96AE2B7EDB0A0096B039 /* Assets.xcassets */; };
 		412D96B32B7EDB0A0096B039 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 412D96B22B7EDB0A0096B039 /* Preview Assets.xcassets */; };
+		413B4DDC2B95C8330082FE84 /* Table_Test_Tab_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413B4DDB2B95C8330082FE84 /* Table_Test_Tab_View.swift */; };
 		41A9B0C32B7EE3C200479902 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B0C22B7EE3C200479902 /* HomeScreen.swift */; };
 		41A9B0D12B81F1EB00479902 /* test_homescreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B0D02B81F1EB00479902 /* test_homescreen.swift */; };
 		41A9B0D32B82B22600479902 /* Demo_Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B0D22B82B22600479902 /* Demo_Views.swift */; };
@@ -41,6 +42,7 @@
 		412D96AE2B7EDB0A0096B039 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		412D96B02B7EDB0A0096B039 /* SFT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SFT.entitlements; sourceTree = "<group>"; };
 		412D96B22B7EDB0A0096B039 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		413B4DDB2B95C8330082FE84 /* Table_Test_Tab_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table_Test_Tab_View.swift; sourceTree = "<group>"; };
 		41A9B0C22B7EE3C200479902 /* HomeScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		41A9B0D02B81F1EB00479902 /* test_homescreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_homescreen.swift; sourceTree = "<group>"; };
 		41A9B0D22B82B22600479902 /* Demo_Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo_Views.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				41A9B1402B92B06E00479902 /* Exercises+CoreDataProperties.swift */,
 				41A9B1412B92B06E00479902 /* Exercise_Time+CoreDataClass.swift */,
 				41A9B1422B92B06E00479902 /* Exercise_Time+CoreDataProperties.swift */,
+				413B4DDB2B95C8330082FE84 /* Table_Test_Tab_View.swift */,
 				41A9B1032B8C336800479902 /* Table_Test_Exercise_View.swift */,
 				41A9B1022B8C336800479902 /* Table_Test_Exercise.swift */,
 				41A9B1012B8C336800479902 /* Table_Tests.swift */,
@@ -231,6 +234,7 @@
 				41A9B0D72B87B14000479902 /* Exercise_List_View.swift in Sources */,
 				41A9B1442B92B06E00479902 /* Workouts+CoreDataProperties.swift in Sources */,
 				41A9B1052B8C336800479902 /* Table_Test_Exercise.swift in Sources */,
+				413B4DDC2B95C8330082FE84 /* Table_Test_Tab_View.swift in Sources */,
 				41A9B1492B92B06E00479902 /* Exercise_Time+CoreDataClass.swift in Sources */,
 				41A9B0D12B81F1EB00479902 /* test_homescreen.swift in Sources */,
 			);
@@ -421,6 +425,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=iphoneos*]" = 16;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;

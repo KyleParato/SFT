@@ -32,8 +32,9 @@ struct Table_Test_Exercise: View {
                 // the workout name passed into the view
                 ForEach(exercises){ exercise in
                     if(exercise.workout_name == workout_name){
-                        // Navigate to single exercise view, pass current exercise name as string
-                        NavigationLink(destination: Table_Test_Exercise_View( current_exercise_name: exercise.name!)){
+                        // Navigate to tab view of exercises, tag is
+                        // current_exercise_name
+                        NavigationLink(destination: Table_Test_Tab_View(workout_name: workout_name, current_exercise_name: exercise.name!)){
                             Image(systemName: "dumbbell.fill")
                             Text(exercise.name!)
                             }   .padding(.vertical, 5)
