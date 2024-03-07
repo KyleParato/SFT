@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Tab_view: View {
+struct tab_view: View {
     @State var tag: Int = 0
     var body: some View {
         NavigationStack{
@@ -45,5 +45,5 @@ struct Tab_view: View {
 }
 
 #Preview {
-    Tab_view()
+    tab_view()
 }

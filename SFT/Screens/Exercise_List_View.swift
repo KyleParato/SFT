@@ -11,15 +11,15 @@ struct Exercise_List_View: View {
     var body: some View {
         NavigationStack{
             List{
-                NavigationLink(destination: test_homescreen(tag:1)){
+                NavigationLink(destination: tab_view(tag:1)){
                     Image(systemName: "dumbbell.fill")
                     Text("Squat")
                 }
-                NavigationLink(destination: test_homescreen(tag:2)){
+                NavigationLink(destination: tab_view(tag:2)){
                     Image(systemName: "dumbbell.fill")
                     Text("Bench")
                 }
-                NavigationLink(destination: test_homescreen(tag:3)){
+                NavigationLink(destination: tab_view(tag:3)){
                     Image(systemName: "dumbbell.fill")
                     Text("Deadlift")
                 }
