@@ -50,6 +50,10 @@ struct Table_Test_Exercise_View: View {
                     Label("Add New Entry", systemImage: "plus")
                 }
                 .buttonStyle(.bordered)
+                NavigationLink(destination: Table_View_Exercise_Entry_List(current_exercise_name: current_exercise_name)){
+                    Text("View Entries")
+                }
+                .buttonStyle(.bordered)
             }
             Spacer()
         }
@@ -58,8 +62,6 @@ struct Table_Test_Exercise_View: View {
     // Creating new entry
     func addEntry(weight: Double,reps: Int16){
         withAnimation{
-            let formater = DateFormatter()
-                formater.dateStyle = .short
             // Create new exercise entry
             let newEntry = Exercise_Static(context: viewContext)
             newEntry.exercise_name = current_exercise_name
@@ -77,6 +79,8 @@ struct Table_Test_Exercise_View: View {
     }
     // Filtering data and converting it to a plottable form
     func create_plot_data() -> [data_value]{
+        let formater = DateFormatter()
+            formater.dateStyle = .short
         var return_arr:[data_value] = []
         for data in enteries{
             if(data.exercise_name == current_exercise_name){
