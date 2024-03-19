@@ -33,16 +33,21 @@ struct Table_Test_Exercise_View: View {
                 
                 // Gather data from enteries
                 let to_plot = create_plot_data()
+                let numberOfDisplay = 3
                 // Plot data to graph
                 Chart(to_plot, id:\.name){
                     // Bar graph version
                     BarMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
+                    
                     
                     // Original line graph with poits idea, uncomment to test
 //                    LineMark( x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight))
 //                    PointMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
                                 
                 }
+                .chartScrollableAxes(.horizontal)
+                .chartXVisibleDomain(length: numberOfDisplay)
+                
                 .aspectRatio(1,contentMode: .fit)
                 .padding(.horizontal,5)
                 // Create new entry button
@@ -61,13 +66,14 @@ struct Table_Test_Exercise_View: View {
     
     // Creating new entry
     func addEntry(weight: Double,reps: Int16){
+        let timestamp = Date().timeIntervalSince1970
         withAnimation{
             // Create new exercise entry
             let newEntry = Exercise_Static(context: viewContext)
             newEntry.exercise_name = current_exercise_name
             newEntry.weight = weight
             newEntry.reps = reps
-            newEntry.timestamp = Date()
+            newEntry.timestamp = Date(timeIntervalSince1970: timestamp)
             do{
                 try viewContext.save()
             }catch{
@@ -78,19 +84,20 @@ struct Table_Test_Exercise_View: View {
         
     }
     // Filtering data and converting it to a plottable form
-    func create_plot_data() -> [data_value]{
-        let formater = DateFormatter()
-            formater.dateStyle = .short
+    func create_plot_data() -> [data_value] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         var return_arr:[data_value] = []
-        for data in enteries{
-            if(data.exercise_name == current_exercise_name){
-                let point: data_value = data_value(name:current_exercise_name, weight:data.weight,timestamp:data.timestamp!.formatted(),reps:"\(data.reps)")
+        for data in enteries {
+            if(data.exercise_name == current_exercise_name) {
+                let timestamp = formatter.string(from: data.timestamp!)
+                let point: data_value = data_value(name:current_exercise_name, weight:data.weight,timestamp:timestamp,reps:"\(data.reps)")
                 return_arr.append(point)
             }
         }
         return return_arr
     }
-                                                   
+    
     // Struct to store data for plotting, id is name, type string
     struct data_value{
         var name : String // id
