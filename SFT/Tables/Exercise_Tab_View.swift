@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Table_Test_Tab_View: View {
+struct Exercise_Tab_View: View {
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
     
@@ -27,7 +27,7 @@ struct Table_Test_Tab_View: View {
                 // Generate views
                 ForEach(exercises){ exercise in
                     if(exercise.workout_name == workout_name){
-                        Table_Test_Exercise_View(current_exercise_name: exercise.name!).tag(exercise.name!)
+                        Single_Exercise_View(current_exercise_name: exercise.name!).tag(exercise.name!)
                     }
                 }
             }
