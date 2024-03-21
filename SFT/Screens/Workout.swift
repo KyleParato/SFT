@@ -17,38 +17,29 @@ struct Workout: View {
         animation: .default)
     private var workouts: FetchedResults<Workouts>
     
-    //creates new array for Workouts
-    @State private var workout_name_arr : [String] = []
-    
     // variables used to control popup menu
     @State private var showAlert = false
     @State private var workout = ""
     @State private var searchItem = ""
     
-    // part of original method with just looking through the orignal FetchedResults, returns filtered array
-    var filteredSearch: [Workouts] {
-        if searchItem.isEmpty {
-            //returns original array if search is empty
-            return workouts
-        } else {
-            return workouts.filter { $0.name!.localizedCaseInsensitiveContains(searchItem)}
-        }
-    }
     
     // Workout View
     var body: some View {
+        // Stores names of workouts for search function
+        var workout_name_list = generate_name_list(workouts:workouts)
+        
         NavigationStack {
             ZStack {
                 VStack{
                     //List view for workouts
                    NavigationView {
                         List {
-                            // Display all workouts
-                            ForEach(workouts){ workout in
+                            // Displays filtered workout names
+                            ForEach(filteredSearch, id: \.self){ workout in
                                 // Navigate to exercise page, must pass workout name as string
-                                NavigationLink(destination: Exercise_List(workout_name: workout.name!)){
+                                NavigationLink(destination: Exercise_List(workout_name: workout)){
                                     Image(systemName: "scalemass")
-                                    Text(workout.name!)
+                                    Text(workout)
                                 }.padding(.vertical, 5)
                             }
                             .onDelete(perform: delete)
@@ -78,13 +69,6 @@ struct Workout: View {
                     
                 }
                 .toolbar{
-                    #if os(iOS)
-//                    ToolbarItem(placement: .navigationBarLeading){
-//                        Button(action: search_exercises){
-//                            Label("Search", systemImage: "magnifyingglass")
-//                        }
-//                    }
-                    #endif
                     ToolbarItem(placement: .navigationBarTrailing){
                         Button(action: hamburger_menu){
                             Label("Menu", systemImage: "sidebar.right")
@@ -96,9 +80,14 @@ struct Workout: View {
         // creates search bar at top of screen
         .searchable(text: $searchItem, placement: .navigationBarDrawer, prompt: "Search")
         
-        //supposed to make an array with for loop for FetchedRequest
-        ForEach(workouts){ workout in
-          workout_name_arr.append(workout.name)
+        // filters through workout names
+        var filteredSearch: [String] {
+            if searchItem.isEmpty {
+                //returns original array if search is empty
+                return workout_name_list
+            } else {
+                return workout_name_list.filter { $0.localizedCaseInsensitiveContains(searchItem)}
+            }
         }
 
 }
@@ -131,9 +120,15 @@ struct Workout: View {
         }
     }
     
-    private func search_exercises(){
-        
+    // gathers all names and stroes them into an array
+    func generate_name_list(workouts : FetchedResults<Workouts>) -> [String]{
+        var returnarr :[String] = []
+        for workout in workouts{
+            returnarr.append(workout.name!)
+        }
+        return returnarr
     }
+    
     private func hamburger_menu(){
         
     }
