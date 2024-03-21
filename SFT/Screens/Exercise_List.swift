@@ -27,6 +27,10 @@ struct Exercise_List: View {
     
     // Exercise View
     var body: some View {
+        
+        //Stores names of exercises within each workout, used in search function
+        var exercise_name_list = generate_exercise_list(exercises:exercises)
+        
         NavigationStack{
             List{
                 // Display all workouts with parent workout name equal to
@@ -47,6 +51,17 @@ struct Exercise_List: View {
                 }
             .navigationTitle(workout_name)
             .searchable(text: $searchItem, placement: .navigationBarDrawer, prompt: "Search")
+            
+            //filters through array returns searched item
+            // filters through workout names
+            var filteredSearch: [String] {
+                if searchItem.isEmpty {
+                    //returns original array if search is empty
+                    return exercise_name_list
+                } else {
+                    return exercise_name_list.filter { $0.localizedCaseInsensitiveContains(searchItem)}
+                }
+            }
             
             //Button for adding Exercises
             Button {
@@ -69,13 +84,6 @@ struct Exercise_List: View {
             })
         }
         .toolbar{
-            #if os(iOS)
-            ToolbarItem(placement: .navigationBarLeading){
-                Button(action: search_exercises){
-                    Label("Search", systemImage: "magnifyingglass")
-                }
-            }
-            #endif
             ToolbarItem(placement: .navigationBarTrailing){
                 Button(action: hamburger_menu){
                     Label("Menu", systemImage: "sidebar.right")
@@ -111,8 +119,16 @@ struct Exercise_List: View {
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
-    private func search_exercises(){
-        
+    
+    //func that appends names of exercises into array for searching
+    func generate_exercise_list(exercises : FetchedResults<Exercises>) -> [String]{
+        var returnarr :[String] = []
+        for exercise in exercises{
+            if(exercise.workout_name == workout_name){
+                returnarr.append(exercise.name!)
+            }
+        }
+        return returnarr
     }
     private func hamburger_menu(){
         

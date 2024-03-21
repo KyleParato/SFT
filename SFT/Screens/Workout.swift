@@ -26,7 +26,7 @@ struct Workout: View {
     // Workout View
     var body: some View {
         // Stores names of workouts for search function
-        var workout_name_list = generate_name_list(workouts:workouts)
+        var workout_name_list = generate_workout_list(workouts:workouts)
         
         NavigationStack {
             ZStack {
@@ -120,8 +120,8 @@ struct Workout: View {
         }
     }
     
-    // gathers all names and stroes them into an array
-    func generate_name_list(workouts : FetchedResults<Workouts>) -> [String]{
+    // gathers all names and stores them into an array
+    func generate_workout_list(workouts : FetchedResults<Workouts>) -> [String]{
         var returnarr :[String] = []
         for workout in workouts{
             returnarr.append(workout.name!)
