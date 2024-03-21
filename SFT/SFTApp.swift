@@ -17,7 +17,7 @@ struct SFTApp: App {
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
             
 //            HomeScreen()
-            Table_Tests().environment(\.managedObjectContext, persistenceController.container.viewContext)
+            Workout().environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
@@ -38,6 +38,7 @@ should rename every instance of it evne in other files
     - change weight metric
     - type of graph
     - themes (dark/light mode)
+- Add cascade deleting
 
 */
 

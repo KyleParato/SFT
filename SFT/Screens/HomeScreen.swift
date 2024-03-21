@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeScreen: View {
     
+    @State private var searchText = ""
     @State private var showAlert = false
     @State private var workout = ""
     
@@ -20,6 +21,8 @@ struct HomeScreen: View {
         NavigationStack {
             ZStack {
                 VStack{
+                    Text((searchText))
+                                    .navigationTitle("Searchable Example")
                     //List view for workouts
                    // NavigationView {
                         List {
@@ -65,11 +68,11 @@ struct HomeScreen: View {
                 }
                 .toolbar{
                     #if os(iOS)
-                    ToolbarItem(placement: .navigationBarLeading){
-                        Button(action: search_exercises){
-                            Label("Search", systemImage: "magnifyingglass")
-                        }
-                    }
+//                    ToolbarItem(placement: .navigationBarLeading){
+//                        Button(action: search_exercises){
+//                            Label("Search", systemImage: "magnifyingglass")
+//                        }
+//                    }
                     #endif
                     ToolbarItem(placement: .navigationBarTrailing){
                         Button(action: hamburger_menu){
@@ -78,7 +81,9 @@ struct HomeScreen: View {
                     }
                 }
             }
+            
         }
+        .searchable(text: $searchText)
 }
     
     //func for deleting list items

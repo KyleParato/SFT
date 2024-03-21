@@ -35,7 +35,7 @@ struct Exercise_List: View {
                     if(exercise.workout_name == workout_name){
                         // Navigate to tab view of exercises, tag is
                         // current_exercise_name
-                        NavigationLink(destination: Table_Test_Tab_View(workout_name: workout_name, current_exercise_name: exercise.name!)){
+                        NavigationLink(destination: Exercise_Tab_View(workout_name: workout_name, current_exercise_name: exercise.name!)){
                             Image(systemName: "dumbbell.fill")
                             Text(exercise.name!)
                             }   .padding(.vertical, 5)

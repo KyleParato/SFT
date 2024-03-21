@@ -17,14 +17,23 @@ struct Workout: View {
         animation: .default)
     private var workouts: FetchedResults<Workouts>
     
+    //creates new array for Workouts
+    @State private var workout_name_arr : [String] = []
+    
     // variables used to control popup menu
     @State private var showAlert = false
     @State private var workout = ""
     @State private var searchItem = ""
     
-//    var filteredSearch: Workouts {
-//        return workouts.filter{$0.login.localizedCaseInsensitiveContains(<#T##String#>)}
-//    }
+    // part of original method with just looking through the orignal FetchedResults, returns filtered array
+    var filteredSearch: [Workouts] {
+        if searchItem.isEmpty {
+            //returns original array if search is empty
+            return workouts
+        } else {
+            return workouts.filter { $0.name!.localizedCaseInsensitiveContains(searchItem)}
+        }
+    }
     
     // Workout View
     var body: some View {
@@ -45,8 +54,7 @@ struct Workout: View {
                             .onDelete(perform: delete)
                         }
                     }
-                    .navigationTitle("Workouts")
-                    .searchable(text: $searchItem, placement: .navigationBarDrawer, prompt: "Search")
+                   .navigationTitle("Workouts")
                     
                     //Button for adding workouts
                     Button {
@@ -71,11 +79,11 @@ struct Workout: View {
                 }
                 .toolbar{
                     #if os(iOS)
-                    ToolbarItem(placement: .navigationBarLeading){
-                        Button(action: search_exercises){
-                            Label("Search", systemImage: "magnifyingglass")
-                        }
-                    }
+//                    ToolbarItem(placement: .navigationBarLeading){
+//                        Button(action: search_exercises){
+//                            Label("Search", systemImage: "magnifyingglass")
+//                        }
+//                    }
                     #endif
                     ToolbarItem(placement: .navigationBarTrailing){
                         Button(action: hamburger_menu){
@@ -85,6 +93,14 @@ struct Workout: View {
                 }
             }
         }
+        // creates search bar at top of screen
+        .searchable(text: $searchItem, placement: .navigationBarDrawer, prompt: "Search")
+        
+        //supposed to make an array with for loop for FetchedRequest
+        ForEach(workouts){ workout in
+          workout_name_arr.append(workout.name)
+        }
+
 }
     // function for ceating workout in data base
     private func addWorkout(workout_name: String){
