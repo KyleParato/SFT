@@ -20,25 +20,40 @@ struct Entries_List: View {
     
     // parent exercise name
     @State var current_exercise_name :String
+    @State private var searchItem = ""
     
     var body: some View{
+        
+        let exercise_name_list = generate_entry_list(entries:enteries)
         NavigationStack{
             VStack{
-                List{
-                    ForEach(enteries){ entry in
-                        if(entry.exercise_name == current_exercise_name){
-                            NavigationLink{
-                                Text("Entry: \(entry.timestamp!, formatter: itemFormatter)\n  Weight: \(entry.weight)\n  Reps: \(entry.reps)")
-                                
-                            } label:{
-                                Text(entry.timestamp!, formatter: itemFormatter)
+                NavigationView{
+                    List{
+                        ForEach(enteries){ entry in
+                            if(entry.exercise_name == current_exercise_name){
+                                NavigationLink{
+                                    Text("Entry: \(entry.timestamp!, formatter: itemFormatter)\n  Weight: \(entry.weight)\n  Reps: \(entry.reps)")
+                                    
+                                } label:{
+                                    Text(entry.timestamp!, formatter: itemFormatter)
+                                }
                             }
                         }
+                        .onDelete(perform: deleteEntry)
                     }
-                    .onDelete(perform: deleteEntry)
                 }
             }
             Text("Entries")
+        }
+        .searchable(text: $searchItem, placement: .navigationBarDrawer, prompt: "Search Workouts")
+        // filters through workout names
+        var filteredSearch: [String] {
+            if searchItem.isEmpty {
+                //returns original array if search is empty
+                return exercise_name_list
+            } else {
+                return exercise_name_list.filter { $0.localizedCaseInsensitiveContains(searchItem)}
+            }
         }
         
     }
@@ -64,5 +79,13 @@ struct Entries_List: View {
             }
         }
     }
+    func generate_entry_list(entries : FetchedResults<Exercise_Static>) -> [String]{
+        var returnarr :[String] = []
+        for entry in enteries{
+            returnarr.append(entry.exercise_name!)
+        }
+        return returnarr
+    }
+    
 }
 

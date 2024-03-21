@@ -26,7 +26,7 @@ struct Workout: View {
     // Workout View
     var body: some View {
         // Stores names of workouts for search function
-        var workout_name_list = generate_workout_list(workouts:workouts)
+        let workout_name_list = generate_workout_list(workouts:workouts)
         
         NavigationStack {
             ZStack {
@@ -78,7 +78,7 @@ struct Workout: View {
             }
         }
         // creates search bar at top of screen
-        .searchable(text: $searchItem, placement: .navigationBarDrawer, prompt: "Search")
+        .searchable(text: $searchItem, placement: .navigationBarDrawer, prompt: "Search Workouts")
         
         // filters through workout names
         var filteredSearch: [String] {

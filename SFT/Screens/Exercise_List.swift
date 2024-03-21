@@ -28,66 +28,69 @@ struct Exercise_List: View {
     // Exercise View
     var body: some View {
         
-        //Stores names of exercises within each workout, used in search function
-        var exercise_name_list = generate_exercise_list(exercises:exercises)
+        //Stores names of exercises and their workout name
+        let exercise_name_list = generate_exercise_list(exercises:exercises)
         
         NavigationStack{
-            List{
-                // Display all workouts with parent workout name equal to
-                // the workout name passed into the view
-                ForEach(exercises){ exercise in
-                    if(exercise.workout_name == workout_name){
-                        // Navigate to tab view of exercises, tag is
-                        // current_exercise_name
-                        NavigationLink(destination: Exercise_Tab_View(workout_name: workout_name, current_exercise_name: exercise.name!)){
-                            Image(systemName: "dumbbell.fill")
-                            Text(exercise.name!)
-                            }   .padding(.vertical, 5)
-                        
+            ZStack{
+                VStack{
+                    NavigationView{
+                        List{
+                            // Display all workouts with parent workout name equal to
+                            // the workout name passed into the view
+                            ForEach(filteredSearch, id: \.name){ exercise in
+                                if(exercise.workout_name == workout_name){
+                                    // Navigate to tab view of exercises, tag is
+                                    // current_exercise_name
+                                    NavigationLink(destination: Exercise_Tab_View(workout_name: workout_name, current_exercise_name: exercise.name)){
+                                        Image(systemName: "dumbbell.fill")
+                                        Text(exercise.name)
+                                    }   .padding(.vertical, 5)
+                                    
+                                }
+                            }
+                            .onDelete(perform: delete)
                         }
-                    
                     }
-                .onDelete(perform: delete)
-                }
-            .navigationTitle(workout_name)
-            .searchable(text: $searchItem, placement: .navigationBarDrawer, prompt: "Search")
-            
-            //filters through array returns searched item
-            // filters through workout names
-            var filteredSearch: [String] {
-                if searchItem.isEmpty {
-                    //returns original array if search is empty
-                    return exercise_name_list
-                } else {
-                    return exercise_name_list.filter { $0.localizedCaseInsensitiveContains(searchItem)}
-                }
-            }
-            
-            //Button for adding Exercises
-            Button {
-                showAlert = true
-            }label: {
-                Text("Add Exercise")
-                    .font(.system(size: 18).weight(.bold))
-                    .padding(.horizontal, 85)
-                    .padding(.vertical,15)
-                    .foregroundColor(.white)
-                    .background(.black)
-                    .cornerRadius(20)
-            }
-            .alert("Enter new exercise", isPresented: $showAlert, actions: {
+                    .navigationTitle(workout_name)
+                    
+                    //Button for adding Exercises
+                    Button {
+                        showAlert = true
+                    }label: {
+                        Text("Add Exercise")
+                            .font(.system(size: 18).weight(.bold))
+                            .padding(.horizontal, 85)
+                            .padding(.vertical,15)
+                            .foregroundColor(.white)
+                            .background(.black)
+                            .cornerRadius(20)
+                    }
+                    .alert("Enter new exercise", isPresented: $showAlert, actions: {
                         TextField("Exercise", text: $exercise)
-
-                Button("Add new exercise", action: {addExercise(exercise_name: exercise, exercise_type: 0, workout_name: workout_name)})
-                Button("Cancel", role: .cancel, action: {})
+                        
+                        Button("Add new exercise", action: {addExercise(exercise_name: exercise, exercise_type: 0, workout_name: workout_name)})
+                        Button("Cancel", role: .cancel, action: {})
                     }, message: {
-            })
-        }
-        .toolbar{
-            ToolbarItem(placement: .navigationBarTrailing){
-                Button(action: hamburger_menu){
-                    Label("Menu", systemImage: "sidebar.right")
+                    })
                 }
+            }
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing){
+                    Button(action: hamburger_menu){
+                        Label("Menu", systemImage: "sidebar.right")
+                    }
+                }
+            }
+        }
+        .searchable(text: $searchItem, placement: .navigationBarDrawer, prompt: "Search Exercises")
+        // filters through workout names
+        var filteredSearch: [exercise_filter] {
+            if searchItem.isEmpty {
+                //returns original array if search is empty
+                return exercise_name_list
+            } else {
+                return exercise_name_list.filter { $0.name.localizedCaseInsensitiveContains(searchItem)}
             }
         }
     }
@@ -121,15 +124,25 @@ struct Exercise_List: View {
     }
     
     //func that appends names of exercises into array for searching
-    func generate_exercise_list(exercises : FetchedResults<Exercises>) -> [String]{
-        var returnarr :[String] = []
+    func generate_exercise_list(exercises : FetchedResults<Exercises>) -> [exercise_filter]{
+        var returnarr : [exercise_filter] = []
         for exercise in exercises{
             if(exercise.workout_name == workout_name){
-                returnarr.append(exercise.name!)
+                returnarr.append(exercise_filter(name:exercise.name!,workout_name: exercise.workout_name!))
             }
         }
         return returnarr
     }
+    
+    struct exercise_filter{
+        var name : String
+        var workout_name: String
+        
+        var hashVale: Int{
+            return name.hashValue
+        }
+    }
+    
     private func hamburger_menu(){
         
     }
