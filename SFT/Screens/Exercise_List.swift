@@ -83,6 +83,7 @@ struct Exercise_List: View {
                 }
             }
         }
+        
         .searchable(text: $searchItem, placement: .navigationBarDrawer, prompt: "Search Exercises")
         // filters through workout names
         var filteredSearch: [exercise_filter] {

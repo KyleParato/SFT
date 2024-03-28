@@ -41,9 +41,14 @@ struct Entries_List: View {
                         }
                         .onDelete(perform: deleteEntry)
                     }
+                }.navigationTitle(current_exercise_name)
+                Button(action: {deleteAllEntries()}){
+                    Text("Delete All Entries")
+                        .foregroundStyle(Color.red)
                 }
+                .buttonStyle(.bordered)
+                    
             }
-            Text("Entries")
         }
         .searchable(text: $searchItem, placement: .navigationBarDrawer, prompt: "Search Workouts")
         // filters through workout names
@@ -85,6 +90,14 @@ struct Entries_List: View {
             returnarr.append(entry.exercise_name!)
         }
         return returnarr
+    }
+    
+    func deleteAllEntries(){
+        for entry in enteries{
+            if entry.exercise_name == current_exercise_name{
+                viewContext.delete(entry)
+            }
+        }
     }
     
 }
