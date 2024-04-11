@@ -21,10 +21,6 @@ struct Single_Exercise_View: View {
     
     // parent exercise name
     @State var current_exercise_name :String
-
-    private var weight_entry_field = 0.0
-    private var reps_entry_field = 0
-
     
     // Single exercise view
     var body: some View {
@@ -71,10 +67,6 @@ struct Single_Exercise_View: View {
     // Creating new entry
     func addEntry(weight: Double,reps: Int16){
         let timestamp = Date().timeIntervalSince1970
-	if weight < 0.0 and reps < 0{
-		return
-	}
-
         withAnimation{
             // Create new exercise entry
             let newEntry = Exercise_Static(context: viewContext)
