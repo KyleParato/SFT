@@ -26,6 +26,7 @@
 		41A9B1482B92B06E00479902 /* Exercises+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B1402B92B06E00479902 /* Exercises+CoreDataProperties.swift */; };
 		41A9B1492B92B06E00479902 /* Exercise_Time+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B1412B92B06E00479902 /* Exercise_Time+CoreDataClass.swift */; };
 		41A9B14A2B92B06E00479902 /* Exercise_Time+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9B1422B92B06E00479902 /* Exercise_Time+CoreDataProperties.swift */; };
+		7A5667FA2BACD61700AA677B /* Settings_view.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5667F92BACD61700AA677B /* Settings_view.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		41A9B1402B92B06E00479902 /* Exercises+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercises+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		41A9B1412B92B06E00479902 /* Exercise_Time+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise_Time+CoreDataClass.swift"; sourceTree = "<group>"; };
 		41A9B1422B92B06E00479902 /* Exercise_Time+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise_Time+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7A5667F92BACD61700AA677B /* Settings_view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings_view.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				41A9B1032B8C336800479902 /* Single_Exercise_View.swift */,
 				41A9B1022B8C336800479902 /* Exercise_List.swift */,
 				41A9B1012B8C336800479902 /* Workout.swift */,
+				7A5667F92BACD61700AA677B /* Settings_view.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A5667FA2BACD61700AA677B /* Settings_view.swift in Sources */,
 				41A9B1432B92B06E00479902 /* Workouts+CoreDataClass.swift in Sources */,
 				412D96A62B7EDB070096B039 /* SFTApp.swift in Sources */,
 				41A9B1062B8C336800479902 /* Single_Exercise_View.swift in Sources */,

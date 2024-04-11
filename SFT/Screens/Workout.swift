@@ -21,12 +21,15 @@ struct Workout: View {
     @State private var showAlert = false
     @State private var workout = ""
     @State private var searchItem = ""
+    @State private var showSettings = false
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
     
     // Workout View
     var body: some View {
         // Stores names of workouts for search function
         let workout_name_list = generate_workout_list(workouts:workouts)
+
         
         NavigationStack {
             ZStack {
@@ -68,10 +71,17 @@ struct Workout: View {
                     })
                     
                 }
+                
+                
                 .toolbar{
                     ToolbarItem(placement: .navigationBarTrailing){
-                        Button(action: hamburger_menu){
-                            Label("Menu", systemImage: "sidebar.right")
+                        Button(action: Settings_button){
+                            Label("Settings", systemImage: "gearshape.fill")
+                            
+                                .sheet(isPresented: $showSettings) {
+                                    Settings_view()
+                                }
+                            
                         }
                     }
                 }
@@ -79,6 +89,7 @@ struct Workout: View {
         }
         // creates search bar at top of screen
         .searchable(text: $searchItem, placement: .navigationBarDrawer, prompt: "Search Workouts")
+        .preferredColorScheme(isDarkMode ? .dark : .light)
         
         // filters through workout names
         var filteredSearch: [String] {
@@ -129,8 +140,8 @@ struct Workout: View {
         return returnarr
     }
     
-    private func hamburger_menu(){
+    private func Settings_button() {
+        showSettings = true
         
     }
 }
-
