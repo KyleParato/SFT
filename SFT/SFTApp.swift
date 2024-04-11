@@ -28,16 +28,15 @@ TO-DO
 
 - Work on add new entry button, should have text field that takes in double for weight and int for
 inputs, pass it through to the add entry function
-- Rename files, go to file go to the struct at the top right click, click refractor, and rename
-should rename every instance of it evne in other files
-- Work on search function, figure out how to implement search
-- Work on sidebar menu
-    - settings
-        - clear all data
+- Update searchbar with a custom search bar
+- settings
+    - clear all data
     - change weight metric
     - type of graph
-    - themes (dark/light mode)
+    - Color accurate text for dark mode
+- Add different workouts
 - Add cascade deleting
+- Add custom swipe action on Exercise List - Ask Kyle
 
 */
 
