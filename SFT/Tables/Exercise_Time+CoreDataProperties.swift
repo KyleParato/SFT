@@ -16,10 +16,10 @@ extension Exercise_Time {
         return NSFetchRequest<Exercise_Time>(entityName: "Exercise_Time")
     }
 
-    @NSManaged public var duration: Date?
     @NSManaged public var exercise_name: String?
-    @NSManaged public var name: String?
-    @NSManaged public var exercise: Exercises?
+    @NSManaged public var duration: Date?
+    @NSManaged public var timestamp: Date?
+    
 
 }
 
