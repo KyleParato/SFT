@@ -17,6 +17,7 @@ extension Exercise_Static {
     }
 
     @NSManaged public var exercise_name: String?
+    // Gathered from user input
     @NSManaged public var reps: Int16
     @NSManaged public var timestamp: Date?
     @NSManaged public var weight: Double
