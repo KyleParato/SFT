@@ -57,6 +57,7 @@ struct Exercise_List: View {
                                 }
                             }
                             .onDelete(perform: delete)
+                            
                         }
                     }
                     .navigationTitle(workout_name)

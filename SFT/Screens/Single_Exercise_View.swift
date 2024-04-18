@@ -21,6 +21,8 @@ struct Single_Exercise_View: View {
     
     // parent exercise name
     @State var current_exercise_name :String
+    @State var showingWeightVew = false
+    @State private var showAlert = false
     
     // Single exercise view
     var body: some View {
@@ -51,10 +53,11 @@ struct Single_Exercise_View: View {
                 .aspectRatio(1,contentMode: .fit)
                 .padding(.horizontal,5)
                 // Create new entry button
-                Button(action:{addEntry(weight:Double.random(in: 100..<200),reps:Int16.random(in: 1..<10))}){
-                    Label("Add New Entry", systemImage: "plus")
+                Button("Add New Entry", systemImage: "plus"){
+                    showingWeightVew.toggle()
                 }
                 .buttonStyle(.bordered)
+                .sheet(isPresented:$showingWeightVew, content: {weight_entry(current_exercise_name: current_exercise_name).presentationDetents([.medium])})
                 NavigationLink(destination: Entries_List(current_exercise_name: current_exercise_name)){
                     Text("View Entries")
                 }
@@ -64,25 +67,7 @@ struct Single_Exercise_View: View {
         }
     }
     
-    // Creating new entry
-    func addEntry(weight: Double,reps: Int16){
-        let timestamp = Date().timeIntervalSince1970
-        withAnimation{
-            // Create new exercise entry
-            let newEntry = Exercise_Static(context: viewContext)
-            newEntry.exercise_name = current_exercise_name
-            newEntry.weight = weight
-            newEntry.reps = reps
-            newEntry.timestamp = Date(timeIntervalSince1970: timestamp)
-            do{
-                try viewContext.save()
-            }catch{
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-        
-    }
+    
     // Filtering data and converting it to a plottable form
     func create_plot_data() -> [data_value] {
         let formatter = DateFormatter()
@@ -108,3 +93,50 @@ struct Single_Exercise_View: View {
     
 }
 
+struct weight_entry: View {
+    // Database Context
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @State var current_exercise_name :String
+    @State var weight_in : String = ""
+    @State var reps_in: String = ""
+    @State var weight:Double = 0.0
+    @State var reps:Int16 = 0
+    
+    var body: some View {
+        TextField("Weight", text: $weight_in)
+            .disableAutocorrection(true)
+            .textFieldStyle(.roundedBorder)
+        TextField("Reps", text: $reps_in)
+            .disableAutocorrection(true)
+            .textFieldStyle(.roundedBorder)
+        
+        Button("Submit", action: {
+            weight = Double(weight_in)!
+            reps = Int16(reps_in)!
+            addEntry(weight:weight,reps:reps)
+            
+        })
+            
+    }
+    
+    // Creating new entry
+    func addEntry(weight: Double,reps: Int16)->Void{
+        let timestamp = Date().timeIntervalSince1970
+        withAnimation{
+            // Create new exercise entry
+            let newEntry = Exercise_Static(context: viewContext)
+            newEntry.exercise_name = current_exercise_name
+            newEntry.weight = weight
+            newEntry.reps = reps
+            newEntry.timestamp = Date(timeIntervalSince1970: timestamp)
+            do{
+                try viewContext.save()
+            }catch{
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+        
+    }
+}
