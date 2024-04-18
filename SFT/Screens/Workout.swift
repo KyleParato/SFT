@@ -23,7 +23,7 @@ struct Workout: View {
     @State private var searchItem = ""
     @State private var showSettings = false
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
-    
+        
     
     // Workout View
     var body: some View {
@@ -80,6 +80,14 @@ struct Workout: View {
                             
                                 .sheet(isPresented: $showSettings) {
                                     Settings_view()
+                                        .presentationDragIndicator(.visible)
+                                    Button("Cancel"){
+                                        showSettings = false
+                                    }
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 5)
+                                    .foregroundColor(.white)
+                                    .background(.red, in: RoundedRectangle(cornerRadius: 10))
                                 }
                             
                         }

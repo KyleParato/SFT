@@ -25,6 +25,13 @@ struct Exercise_List: View {
     @State private var exercise = ""
     @State private var searchItem = ""
     
+    // variables for showing bottom sheets
+    @State private var showingExerciseView = false
+    @State private var isSelected = false
+    @State private var isSelected2 = false
+    
+    @State private var exerciseType: Int16 = 0
+    
     // Exercise View
     var body: some View {
         
@@ -56,7 +63,7 @@ struct Exercise_List: View {
                     
                     //Button for adding Exercises
                     Button {
-                        showAlert = true
+                        showingExerciseView.toggle()
                     }label: {
                         Text("Add Exercise")
                             .font(.system(size: 18).weight(.bold))
@@ -66,12 +73,65 @@ struct Exercise_List: View {
                             .background(.black)
                             .cornerRadius(20)
                     }
-                    .alert("Enter new exercise", isPresented: $showAlert, actions: {
-                        TextField("Exercise", text: $exercise)
-                        
-                        Button("Add new exercise", action: {addExercise(exercise_name: exercise, exercise_type: 0, workout_name: workout_name)})
-                        Button("Cancel", role: .cancel, action: {})
-                    }, message: {
+                    .sheet(isPresented: $showingExerciseView, content: {
+                        VStack(content: {
+                            HStack(content: {
+                                SelectButton(isSelected: $isSelected, color: .gray, text: "Weight")
+                                    .onTapGesture{
+                                        isSelected = true
+                                        if isSelected{
+                                            isSelected2 = false
+                                            exerciseType = 0
+                                            
+                                        }
+                                    }
+                
+                                SelectButton(isSelected: $isSelected2, color: .gray, text: "Time")
+                                    .onTapGesture{
+                                        isSelected2 = true
+                                        if isSelected2{
+                                            isSelected = false
+                                            exerciseType = 1
+                                        }
+                                    }
+                            })
+                            
+                            Divider()
+//                                .padding(.horizontal, 30)
+                                .frame(height:10)
+                            
+                            TextField("Exercise", text: $exercise)
+                                .textFieldStyle(.roundedBorder)
+                                .padding(.horizontal, 75)
+                            
+                            Divider()
+                                .padding(.horizontal, 30)
+                                                    
+                            Button("Add new exercise"){
+                                addExercise(exercise_name: exercise, exercise_type: exerciseType, workout_name: workout_name)
+                                showingExerciseView.toggle()
+                            }
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
+                            .foregroundColor(.white)
+                            .background(.black, in: RoundedRectangle(cornerRadius: 10))
+                            
+                            Divider()
+                                .padding(.horizontal, 30)
+                            
+                            Button("Cancel"){
+                                showingExerciseView.toggle()
+                            }
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
+                            .foregroundColor(.white)
+                            .background(.red, in: RoundedRectangle(cornerRadius: 10))
+                            
+                            Divider()
+                                .padding(.horizontal, 30)
+                            
+                        })
+                            .presentationDetents([.medium])
                     })
                 }
             }
@@ -146,6 +206,23 @@ struct Exercise_List: View {
     
     private func hamburger_menu(){
         
+    }
+    
+}
+
+struct SelectButton: View {
+    @Binding var isSelected: Bool
+    @State var color: Color
+    @State var text: String
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .frame(width: 120, height: 35)
+                .foregroundColor(isSelected ? color : .black)
+            Text(text)
+                .foregroundColor(.white)
+        }
     }
 }
 

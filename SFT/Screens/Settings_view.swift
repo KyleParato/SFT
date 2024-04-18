@@ -4,7 +4,7 @@ struct Settings_view: View {
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
     @Environment(\.colorScheme) var colorScheme
-    
+        
     var body: some View {
         NavigationView{
             Form {
@@ -24,7 +24,9 @@ struct Settings_view: View {
                                 .foregroundColor(.red)
                         }
                         .disabled(isDarkMode == false)
+                        
                     }
+                    
                 }
                 .navigationTitle("Settings")
             }
@@ -32,9 +34,9 @@ struct Settings_view: View {
         .preferredColorScheme(isDarkMode ? .dark : .light)
     }
     
-    struct Settings_view_Previews: PreviewProvider {
-        static var previews: some View {
-            Settings_view()
-        }
-    }
+//    struct Settings_view_Previews: PreviewProvider {
+//        static var previews: some View {
+//            Settings_view()
+//        }
+//    }
 }
