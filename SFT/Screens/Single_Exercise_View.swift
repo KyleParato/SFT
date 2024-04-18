@@ -12,6 +12,9 @@ import Charts
 struct Single_Exercise_View: View {
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    
+
    
     // Fetch all static exercise data and store it to var enteries
     @FetchRequest(
@@ -23,6 +26,7 @@ struct Single_Exercise_View: View {
     @State var current_exercise_name :String
     @State var showingWeightVew = false
     @State private var showAlert = false
+    
     
     // Single exercise view
     var body: some View {
@@ -43,9 +47,9 @@ struct Single_Exercise_View: View {
                     
                     
                     // Original line graph with poits idea, uncomment to test
-//                    LineMark( x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight))
-//                    PointMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
-                                
+                    //                    LineMark( x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight))
+                    //                    PointMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
+                    
                 }
                 .chartScrollableAxes(.horizontal)
                 .chartXVisibleDomain(length: numberOfDisplay)
@@ -60,9 +64,12 @@ struct Single_Exercise_View: View {
                 .sheet(isPresented:$showingWeightVew, content: {weight_entry(current_exercise_name: current_exercise_name).presentationDetents([.medium])})
                 NavigationLink(destination: Entries_List(current_exercise_name: current_exercise_name)){
                     Text("View Entries")
+                        .foregroundColor(.black)
                 }
                 .buttonStyle(.bordered)
             }
+            
+            
             Spacer()
         }
     }

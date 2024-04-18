@@ -24,6 +24,7 @@ struct Exercise_List: View {
     @State private var showAlert = false
     @State private var exercise = ""
     @State private var searchItem = ""
+    @State private var showSettings = false
     
     // variables for showing bottom sheets
     @State private var showingExerciseView = false
@@ -138,8 +139,13 @@ struct Exercise_List: View {
             }
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing){
-                    Button(action: hamburger_menu){
-                        Label("Menu", systemImage: "sidebar.right")
+                    Button(action: Settings_button){
+                        Label("Settings", systemImage: "gearshape.fill")
+                        
+                            .sheet(isPresented: $showSettings) {
+                                Settings_view()
+                            }
+                        
                     }
                 }
             }
@@ -205,7 +211,8 @@ struct Exercise_List: View {
         }
     }
     
-    private func hamburger_menu(){
+    private func Settings_button() {
+        showSettings = true
         
     }
     

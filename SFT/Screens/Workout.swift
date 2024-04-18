@@ -77,7 +77,9 @@ struct Workout: View {
                     ToolbarItem(placement: .navigationBarTrailing){
                         Button(action: Settings_button){
                             Label("Settings", systemImage: "gearshape.fill")
-                            
+                                .foregroundStyle(.white, .black)
+                                .font(.system(size: 42.0))
+                                
                                 .sheet(isPresented: $showSettings) {
                                     Settings_view()
                                         .presentationDragIndicator(.visible)
@@ -93,6 +95,10 @@ struct Workout: View {
                         }
                     }
                 }
+                
+                
+                
+                
             }
         }
         // creates search bar at top of screen
