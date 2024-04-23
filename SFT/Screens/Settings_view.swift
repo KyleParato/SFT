@@ -33,6 +33,7 @@ struct Settings_view: View {
                     
                 }
                 .navigationTitle("Settings")
+                
             }
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)

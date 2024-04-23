@@ -68,13 +68,13 @@ struct Workout: View {
                             .background(.black)
                             .cornerRadius(20)
                     }
-                    .alert("Enter new workout", isPresented: $showAlert, actions: {
-                                TextField("Workout", text: $workout)
-
-                        Button("Add new workout", action: {addWorkout(workout_name: workout)})
-                        Button("Cancel", role: .cancel, action: {})
-                            }, message: {
-                    })
+//                    .alert("Enter new workout", isPresented: $showAlert, actions: {
+//                                TextField("Workout", text: $workout)
+//
+//                        Button("Add new workout", action: {addWorkout(workout_name: workout)})
+//                        Button("Cancel", role: .cancel, action: {})
+//                            }, message: {
+//                    })
                     
                 }
                 
@@ -89,13 +89,15 @@ struct Workout: View {
                                 .sheet(isPresented: $showSettings) {
                                     Settings_view()
                                         .presentationDragIndicator(.visible)
-                                    Button("Cancel"){
+                                    Button{
                                         showSettings = false
+                                    } label: {
+                                        Text("Done")
+                                            .padding(.horizontal, 100)
+                                            .padding(.vertical, 15)
+                                            .foregroundColor(.white)
+                                            .background(.red, in: RoundedRectangle(cornerRadius: 10))
                                     }
-                                    .padding(.horizontal)
-                                    .padding(.vertical, 5)
-                                    .foregroundColor(.white)
-                                    .background(.red, in: RoundedRectangle(cornerRadius: 10))
                                 }
                             
                         }

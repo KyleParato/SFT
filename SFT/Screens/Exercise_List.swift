@@ -104,43 +104,40 @@ struct Exercise_List: View {
                                         }
                                     }
                             })
-                            
-                            Divider()
-//                                .padding(.horizontal, 30)
-                                .frame(height:10)
+//                            .padding()
                             
                             TextField("Exercise", text: $exercise)
                                 .textFieldStyle(.roundedBorder)
                                 .padding(.horizontal, 75)
-                            
-                            Divider()
-                                .padding(.horizontal, 30)
-                                                    
-                            Button("Add new exercise"){
+                                  
+                            Button{
                                 addExercise(exercise_name: exercise, exercise_type: exerciseType, workout_name: workout_name)
                                 showingExerciseView.toggle()
+                            } label: {
+                                Text("Add New Exercise")
+                                .padding(.horizontal, 58)
+                                .padding(.vertical, 15)
+                                .foregroundColor(.white)
+                                .background(.black, in: RoundedRectangle(cornerRadius: 10))
                             }
-                            .padding(.horizontal)
-                            .padding(.vertical, 5)
-                            .foregroundColor(.white)
-                            .background(.black, in: RoundedRectangle(cornerRadius: 10))
-                            
-                            Divider()
-                                .padding(.horizontal, 30)
-                            
-                            Button("Cancel"){
+//                            .padding()
+                        
+                            Button{
                                 showingExerciseView.toggle()
+                                isSelected = false
+                                isSelected2 = false
+                            } label: {
+                                Text("Cancel")
+                                    .padding(.horizontal, 100)
+                                    .padding(.vertical, 15)
+                                    .foregroundColor(.white)
+                                    .background(.red, in: RoundedRectangle(cornerRadius: 10))
                             }
-                            .padding(.horizontal)
-                            .padding(.vertical, 5)
-                            .foregroundColor(.white)
-                            .background(.red, in: RoundedRectangle(cornerRadius: 10))
-                            
-                            Divider()
-                                .padding(.horizontal, 30)
+//                            .padding()
+                            .frame(alignment: .bottom)
                             
                         })
-                            .presentationDetents([.medium])
+                        .presentationDetents([.fraction(0.40)])
                     })
                 }
             }
@@ -243,7 +240,7 @@ struct SelectButton: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .frame(width: 120, height: 35)
+                .frame(width: 135, height: 40)
                 .foregroundColor(isSelected ? color : .black)
             Text(text)
                 .foregroundColor(.white)
