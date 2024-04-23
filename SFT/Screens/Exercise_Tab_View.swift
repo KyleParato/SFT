@@ -19,6 +19,13 @@ struct Exercise_Tab_View: View {
     
     @State var workout_name : String
     @State var current_exercise_name: String
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    
+    var color_Text: Color {
+        if isDarkMode == true { return .white
+        } else { return .black
+        }
+    }
     
     var body: some View {
         VStack{

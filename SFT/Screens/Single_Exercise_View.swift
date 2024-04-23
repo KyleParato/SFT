@@ -12,8 +12,13 @@ import Charts
 struct Single_Exercise_View: View {
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
+    // Color Text Boolean for dark mode
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
-    
+    private var color_Text: Color {
+        if isDarkMode == true { return .white
+        } else { return .black
+        }
+    }
 
    
     // Fetch all static exercise data and store it to var enteries
@@ -26,36 +31,66 @@ struct Single_Exercise_View: View {
     @State var current_exercise_name :String
     @State var showingWeightVew = false
     @State private var showAlert = false
+    @State private var isGraph: Bool = false
     
     
     // Single exercise view
     var body: some View {
         NavigationStack{
             VStack{
-                Text(current_exercise_name)
-                    .font(.title)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                
+//                Text(current_exercise_name)
+//                    .font(.title)
+//                    .frame(maxWidth: .infinity, alignment: .leading)
+//                    .padding()
                 // Gather data from enteries
                 let to_plot = create_plot_data()
                 let numberOfDisplay = 5
                 // Plot data to graph
-                Chart(to_plot, id:\.name){
-                    // Bar graph version
-                    BarMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
+                if isGraph == false {
                     
                     
-                    // Original line graph with poits idea, uncomment to test
-                    //                    LineMark( x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight))
-                    //                    PointMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
+                    Chart(to_plot, id:\.name){
+                        // Bar graph version
+                        BarMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
+                        
+                        
+                        // Original line graph with poits idea, uncomment to test
+                        //                    LineMark( x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight))
+                        //                    PointMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
+                        
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .chartScrollableAxes(.horizontal)
+                    .chartXVisibleDomain(length: numberOfDisplay)
+                    
+                    .aspectRatio(1,contentMode: .fit)
+                    .padding(.horizontal,5)
+                } else {
+                    
+                    Chart(to_plot, id:\.name){
+                        LineMark( x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight))
+                        PointMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
+                    }
+                    .chartScrollableAxes(.horizontal)
+                    .chartXVisibleDomain(length: numberOfDisplay)
+                    
+                    .aspectRatio(1,contentMode: .fit)
+                    .padding(.horizontal,5)
                     
                 }
-                .chartScrollableAxes(.horizontal)
-                .chartXVisibleDomain(length: numberOfDisplay)
                 
-                .aspectRatio(1,contentMode: .fit)
-                .padding(.horizontal,5)
+                HStack {
+                    // Toggle button between line graph and bargraph
+                    Toggle(isOn: $isGraph,
+                           label: {
+                        Text("Line Graph")
+                            .padding(.horizontal, 10)
+                    })
+                    
+                    
+                    
+                }
+                
                 // Create new entry button
                 Button("Add New Entry", systemImage: "plus"){
                     showingWeightVew.toggle()
@@ -67,11 +102,17 @@ struct Single_Exercise_View: View {
                         .foregroundColor(.black)
                 }
                 .buttonStyle(.bordered)
+                
+                Spacer()
             }
             
+            .navigationTitle(current_exercise_name)
+            .padding()
+
             
-            Spacer()
+
         }
+
     }
     
     
@@ -147,3 +188,6 @@ struct weight_entry: View {
         
     }
 }
+
+
+

@@ -23,6 +23,12 @@ struct Workout: View {
     @State private var searchItem = ""
     @State private var showSettings = false
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    
+    var color_Text: Color {
+        if isDarkMode == true { return .white
+        } else { return .black
+        }
+    }
         
     
     // Workout View
@@ -77,7 +83,7 @@ struct Workout: View {
                     ToolbarItem(placement: .navigationBarTrailing){
                         Button(action: Settings_button){
                             Label("Settings", systemImage: "gearshape.fill")
-                                .foregroundStyle(.white, .black)
+                                .foregroundStyle(self.color_Text, .black)
                                 .font(.system(size: 42.0))
                                 
                                 .sheet(isPresented: $showSettings) {

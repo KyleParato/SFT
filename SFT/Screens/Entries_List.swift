@@ -22,6 +22,16 @@ struct Entries_List: View {
     @State var current_exercise_name :String
     @State private var searchItem = ""
     
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    
+    var color_Text: Color {
+        if isDarkMode == true { return .white
+        } else { return .black
+        }
+    }
+    
+
+    
     var body: some View{
         
         let exercise_name_list = generate_entry_list(entries:enteries)

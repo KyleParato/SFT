@@ -32,7 +32,15 @@ struct Exercise_List: View {
     @State private var isSelected2 = false
     
     @State private var exerciseType: Int16 = 0
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
+    var color_Text: Color {
+        if isDarkMode == true { return .white
+        } else { return .black
+        }
+    }
+
+
     // Exercise View
     var body: some View {
         
@@ -54,7 +62,6 @@ struct Exercise_List: View {
                                         Image(systemName: "dumbbell.fill")
                                         Text(exercise.name)
                                     }   .padding(.vertical, 5)
-                                    
                                 }
                             }
                             .onDelete(perform: delete)
@@ -141,9 +148,19 @@ struct Exercise_List: View {
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button(action: Settings_button){
                         Label("Settings", systemImage: "gearshape.fill")
-                        
+                            .foregroundStyle(self.color_Text, .black)
+                            .font(.system(size: 42.0))
+                            
                             .sheet(isPresented: $showSettings) {
                                 Settings_view()
+                                    .presentationDragIndicator(.visible)
+                                Button("Cancel"){
+                                    showSettings = false
+                                }
+                                .padding(.horizontal)
+                                .padding(.vertical, 5)
+                                .foregroundColor(.white)
+                                .background(.red, in: RoundedRectangle(cornerRadius: 10))
                             }
                         
                     }

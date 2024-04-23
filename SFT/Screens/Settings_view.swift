@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct Settings_view: View {
+    // Save information based on apple device settings
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
     @Environment(\.colorScheme) var colorScheme
@@ -8,6 +9,8 @@ struct Settings_view: View {
     var body: some View {
         NavigationView{
             Form {
+                // Create a toggle button that can switch between dark mode and lightmode
+                // More importantly this is the style for a toggle button
                 Section(header: Text("Display")){
                     Toggle(isOn: $isDarkMode,
                            label: {
@@ -15,6 +18,7 @@ struct Settings_view: View {
                     })
                     
                     HStack {
+                        // Use system settings sets the button to off and takes ur systems color scheme
                         Text("Use System Settings")
                         Spacer()
                         Button(action: {
@@ -34,9 +38,5 @@ struct Settings_view: View {
         .preferredColorScheme(isDarkMode ? .dark : .light)
     }
     
-//    struct Settings_view_Previews: PreviewProvider {
-//        static var previews: some View {
-//            Settings_view()
-//        }
-//    }
+
 }
