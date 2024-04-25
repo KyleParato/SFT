@@ -89,8 +89,13 @@ struct Exercise_List: View {
                             .background(.black)
                             .cornerRadius(20)
                     }
+                    //sheet popup for selecting workout type and adding new exercise
                     .sheet(isPresented: $showingExerciseSheet, content: {
                         VStack(content: {
+                            Text("Add New Exercise")
+                                .font(.system(size: 20).weight(.bold))
+                                .padding()
+                            
                             HStack(content: {
                                 SelectButton(isSelected: $isSelected, color: .gray, text: "Weight")
                                     .onTapGesture{
