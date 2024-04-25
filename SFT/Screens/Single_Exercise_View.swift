@@ -331,33 +331,23 @@ struct time_entry: View {
     @State var sec:Int = 0
     
     var body: some View {
-        Picker("",selection: $hours){
-            ForEach(0..<999, id: \.self){ i in
-                Text("\(i) hours").tag(i)
-            }
-        }.pickerStyle(WheelPickerStyle())
-        Picker("", selection: $min){
-            ForEach(0..<60, id: \.self) { i in
-                Text("\(i) min").tag(i)
-            }
-        }.pickerStyle(WheelPickerStyle())
-        Picker("", selection: $sec){
-            ForEach(0..<60, id: \.self) { i in
-                Text("\(i) min").tag(i)
-            }
-        }.pickerStyle(WheelPickerStyle())
-        .padding(.horizontal)
-
-        
-//        TextField("Hours", value: $hours, format: .number)
-//            .disableAutocorrection(true)
-//            .textFieldStyle(.roundedBorder)
-//        TextField("Minutes", value: $min, format: .number)
-//            .disableAutocorrection(true)
-//            .textFieldStyle(.roundedBorder)
-//        TextField("Seconds", value: $sec, format: .number)
-//            .disableAutocorrection(true)
-//            .textFieldStyle(.roundedBorder)
+        HStack{
+            Picker("",selection: $hours){
+                ForEach(0..<999, id: \.self){ i in
+                    Text("\(i) hours").tag(i)
+                }
+            }.pickerStyle(WheelPickerStyle())
+            Picker("", selection: $min){
+                ForEach(0..<60, id: \.self) { i in
+                    Text("\(i) min").tag(i)
+                }
+            }.pickerStyle(WheelPickerStyle())
+            Picker("", selection: $sec){
+                ForEach(0..<60, id: \.self) { i in
+                    Text("\(i) sec").tag(i)
+                }
+            }.pickerStyle(WheelPickerStyle())
+        }
         
         Button("Submit", action: {
             var components = DateComponents()
@@ -368,7 +358,6 @@ struct time_entry: View {
             addEntry(duration:(date)!)
             
         })
-            
     }
     
     // Creating new entry

@@ -63,7 +63,7 @@ struct Exercise_List: View {
                                         if(exercise.type==1){
                                             Image(systemName: "stopwatch.fill")
                                         }
-                                        else if(exercise.type==1){
+                                        if(exercise.type==0){
                                             Image(systemName: "dumbell.fill")
                                         }
                                         Text(exercise.name)
@@ -191,6 +191,11 @@ struct Exercise_List: View {
     }
     // function for ceating exercise in data base
     private func addExercise(exercise_name: String, exercise_type: Int16, workout_name: String){
+        for exercise in exercises{
+            if (exercise.workout_name == workout_name && exercise.name ==  exercise_name){
+                return
+            }
+        }
         withAnimation{
             // Create new exercise object and assign data
             let newExercise = Exercises(context: viewContext)

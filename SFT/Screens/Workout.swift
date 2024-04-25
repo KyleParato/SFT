@@ -161,6 +161,11 @@ struct Workout: View {
 }
     // function for ceating workout in data base
     private func addWorkout(workout_name: String){
+        for workout in workouts {
+            if workout_name == workout.name!{
+                return
+            }
+        }
         withAnimation{
             // Store new workout
             let newWorkout = Workouts(context: viewContext)
