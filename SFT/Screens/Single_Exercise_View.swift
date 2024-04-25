@@ -299,7 +299,7 @@ struct Single_Exercise_View_Time: View {
     // Filtering data and converting it to a plottable form
     func create_plot_data() -> [data_value] {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        formatter.dateFormat = "yyyy/mm/ss HH:mm:ss"
         var return_arr:[data_value] = []
         for data in enteries {
             if(data.exercise_name == current_exercise_name) {

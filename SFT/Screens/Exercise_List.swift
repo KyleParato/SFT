@@ -27,7 +27,7 @@ struct Exercise_List: View {
     @State private var showSettings = false
     
     // variables for showing bottom sheets
-    @State private var showingExerciseView = false
+    @State private var showingExerciseSheet = false
     @State private var isSelected = false
     @State private var isSelected2 = false
     
@@ -79,7 +79,7 @@ struct Exercise_List: View {
                     
                     //Button for adding Exercises
                     Button {
-                        showingExerciseView.toggle()
+                        showingExerciseSheet.toggle()
                     }label: {
                         Text("Add Exercise")
                             .font(.system(size: 18).weight(.bold))
@@ -89,7 +89,7 @@ struct Exercise_List: View {
                             .background(.black)
                             .cornerRadius(20)
                     }
-                    .sheet(isPresented: $showingExerciseView, content: {
+                    .sheet(isPresented: $showingExerciseSheet, content: {
                         VStack(content: {
                             HStack(content: {
                                 SelectButton(isSelected: $isSelected, color: .gray, text: "Weight")
@@ -111,7 +111,6 @@ struct Exercise_List: View {
                                         }
                                     }
                             })
-//                            .padding()
                             
                             TextField("Exercise", text: $exercise)
                                 .textFieldStyle(.roundedBorder)
@@ -120,7 +119,9 @@ struct Exercise_List: View {
                             Button{
                                 
                                 addExercise(exercise_name: exercise, exercise_type: exerciseType, workout_name: workout_name)
-                                showingExerciseView.toggle()
+                                showingExerciseSheet.toggle()
+                                isSelected = false
+                                isSelected2 = false
                             } label: {
                                 Text("Add New Exercise")
                                 .padding(.horizontal, 58)
@@ -128,10 +129,9 @@ struct Exercise_List: View {
                                 .foregroundColor(.white)
                                 .background(.black, in: RoundedRectangle(cornerRadius: 10))
                             }
-//                            .padding()
                         
                             Button{
-                                showingExerciseView.toggle()
+                                showingExerciseSheet.toggle()
                                 isSelected = false
                                 isSelected2 = false
                             } label: {
@@ -141,7 +141,7 @@ struct Exercise_List: View {
                                     .foregroundColor(.white)
                                     .background(.red, in: RoundedRectangle(cornerRadius: 10))
                             }
-//                            .padding()
+                            
                             .frame(alignment: .bottom)
                             
                         })

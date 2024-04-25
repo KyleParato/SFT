@@ -19,6 +19,7 @@ struct Workout: View {
     
     // variables used to control popup menu
     @State private var showAlert = false
+    @State private var showingWorkoutSheet = false
     @State private var workout = ""
     @State private var searchItem = ""
     @State private var showSettings = false
@@ -75,6 +76,63 @@ struct Workout: View {
                         Button("Cancel", role: .cancel, action: {})
                             }, message: {
                     })
+//                    .sheet(isPresented: $showingWorkoutSheet, content: {
+//                        VStack(content: {
+//                            HStack(content: {
+//                                SelectButton(isSelected: $isSelected, color: .gray, text: "Weight")
+//                                    .onTapGesture{
+//                                        isSelected = true
+//                                        if isSelected{
+//                                            isSelected2 = false
+//                                            exerciseType = 0
+//                                            
+//                                        }
+//                                    }
+//                
+//                                SelectButton(isSelected: $isSelected2, color: .gray, text: "Time")
+//                                    .onTapGesture{
+//                                        isSelected2 = true
+//                                        if isSelected2{
+//                                            isSelected = false
+//                                            exerciseType = 1
+//                                        }
+//                                    }
+//                            })
+//                            
+//                            TextField("Exercise", text: $exercise)
+//                                .textFieldStyle(.roundedBorder)
+//                                .padding(.horizontal, 75)
+//                                  
+//                            Button{
+//                                
+//                                addExercise(exercise_name: exercise, exercise_type: exerciseType, workout_name
+//                    workout_name)
+//                                showingExerciseView.toggle()
+//                            } label: {
+//                                Text("Add New Exercise")
+//                                .padding(.horizontal, 58)
+//                                .padding(.vertical, 15)
+//                                .foregroundColor(.white)
+//                                .background(.black, in: RoundedRectangle(cornerRadius: 10))
+//                            }
+//                        
+//                            Button{
+//                                showingExerciseView.toggle()
+//                                isSelected = false
+//                                isSelected2 = false
+//                            } label: {
+//                                Text("Cancel")
+//                                    .padding(.horizontal, 100)
+//                                    .padding(.vertical, 15)
+//                                    .foregroundColor(.white)
+//                                    .background(.red, in: RoundedRectangle(cornerRadius: 10))
+//                            }
+//                            
+//                            .frame(alignment: .bottom)
+//                            
+//                        })
+//                        .presentationDetents([.fraction(0.40)])
+//                    })
                     
                 }
                 
