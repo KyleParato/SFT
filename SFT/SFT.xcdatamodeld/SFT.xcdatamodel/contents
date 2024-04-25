@@ -19,8 +19,7 @@
     <entity name="Exercise_Time" representedClassName="Exercise_Time" syncable="YES">
         <attribute name="duration" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="exercise_name" optional="YES" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exercises"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="Exercises" representedClassName="Exercises" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>

@@ -34,8 +34,14 @@ struct Exercise_Tab_View: View {
                 // Generate views
                 ForEach(exercises){ exercise in
                     if(exercise.workout_name == workout_name){
-                        Single_Exercise_View(current_exercise_name: exercise.name!).tag(exercise.name!)
+                        if(exercise.type == 0){
+                            Single_Exercise_View_Static(current_exercise_name: exercise.name!).tag(exercise.name!)
+                        }
+                        if(exercise.type == 1){
+                            Single_Exercise_View_Time(current_exercise_name: exercise.name!).tag(exercise.name!)
+                        }
                     }
+                    
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .always))

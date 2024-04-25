@@ -68,13 +68,13 @@ struct Workout: View {
                             .background(.black)
                             .cornerRadius(20)
                     }
-//                    .alert("Enter new workout", isPresented: $showAlert, actions: {
-//                                TextField("Workout", text: $workout)
-//
-//                        Button("Add new workout", action: {addWorkout(workout_name: workout)})
-//                        Button("Cancel", role: .cancel, action: {})
-//                            }, message: {
-//                    })
+                    .alert("Enter new workout", isPresented: $showAlert, actions: {
+                                TextField("Workout", text: $workout)
+
+                        Button("Add new workout", action: {addWorkout(workout_name: workout)})
+                        Button("Cancel", role: .cancel, action: {})
+                            }, message: {
+                    })
                     
                 }
                 

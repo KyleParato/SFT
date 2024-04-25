@@ -58,11 +58,18 @@ struct Exercise_List: View {
                                 if(exercise.workout_name == workout_name){
                                     // Navigate to tab view of exercises, tag is
                                     // current_exercise_name
+                                    
                                     NavigationLink(destination: Exercise_Tab_View(workout_name: workout_name, current_exercise_name: exercise.name)){
-                                        Image(systemName: "dumbbell.fill")
+                                        if(exercise.type==1){
+                                            Image(systemName: "stopwatch.fill")
+                                        }
+                                        else if(exercise.type==1){
+                                            Image(systemName: "dumbell.fill")
+                                        }
                                         Text(exercise.name)
                                     }   .padding(.vertical, 5)
                                 }
+                                    
                             }
                             .onDelete(perform: delete)
                             
@@ -111,6 +118,7 @@ struct Exercise_List: View {
                                 .padding(.horizontal, 75)
                                   
                             Button{
+                                
                                 addExercise(exercise_name: exercise, exercise_type: exerciseType, workout_name: workout_name)
                                 showingExerciseView.toggle()
                             } label: {
@@ -210,7 +218,7 @@ struct Exercise_List: View {
         var returnarr : [exercise_filter] = []
         for exercise in exercises{
             if(exercise.workout_name == workout_name){
-                returnarr.append(exercise_filter(name:exercise.name!,workout_name: exercise.workout_name!))
+                returnarr.append(exercise_filter(name:exercise.name!,workout_name: exercise.workout_name!,type:exercise.type))
             }
         }
         return returnarr
@@ -219,6 +227,7 @@ struct Exercise_List: View {
     struct exercise_filter{
         var name : String
         var workout_name: String
+        var type : Int16
         
         var hashVale: Int{
             return name.hashValue
