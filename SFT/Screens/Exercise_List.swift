@@ -64,7 +64,7 @@ struct Exercise_List: View {
                                             Image(systemName: "stopwatch.fill")
                                         }
                                         if(exercise.type==0){
-                                            Image(systemName: "dumbell.fill")
+                                            Image(systemName: "dumbbell.fill")
                                         }
                                         Text(exercise.name)
                                     }   .padding(.vertical, 5)
