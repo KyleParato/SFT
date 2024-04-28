@@ -97,7 +97,7 @@ struct Single_Exercise_View_Static: View {
                 }
                 .buttonStyle(.bordered)
                 .sheet(isPresented:$showingWeightVew, content: {weight_entry(current_exercise_name: current_exercise_name).presentationDetents([.medium])})
-                NavigationLink(destination: Entries_List(current_exercise_name: current_exercise_name)){
+                NavigationLink(destination: Entries_List_Static(current_exercise_name: current_exercise_name)){
                     Text("View Entries")
                         .foregroundColor(.black)
                 }
@@ -239,6 +239,19 @@ struct Single_Exercise_View_Time: View {
                         //                    PointMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
                         
                     }
+                    .chartYAxis {
+                        // Converts seconds to hh:mm:ss on the axis ticks
+                        AxisMarks { value in
+                            AxisGridLine()
+                            AxisTick()
+                            if let value = value.as(Int.self) {
+                                let valueLabel = "\(Int(value/3600)):\(Int(value/60)%60):\(Int(value%60))"
+                                AxisValueLabel {
+                                    Text(String(valueLabel))
+                                }
+                            }
+                        }
+                    }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .chartScrollableAxes(.horizontal)
                     .chartXVisibleDomain(length: numberOfDisplay)
@@ -250,6 +263,19 @@ struct Single_Exercise_View_Time: View {
                     Chart(to_plot, id:\.name){
                         LineMark( x: .value("Time",$0.timestamp), y: .value("Duration", $0.duration))
                         PointMark(x: .value("Time",$0.timestamp), y: .value("Duration", $0.duration))
+                    }
+                    .chartYAxis {
+                        // Converts seconds to hh:mm:ss on the axis ticks
+                        AxisMarks { value in
+                            AxisGridLine()
+                            AxisTick()
+                            if let value = value.as(Int.self) {
+                                let valueLabel = "\(Int(value/3600)):\(Int(value/60)%60):\(Int(value%60))"
+                                AxisValueLabel {
+                                    Text(String(valueLabel))
+                                }
+                            }
+                        }
                     }
                     .chartScrollableAxes(.horizontal)
                     .chartXVisibleDomain(length: numberOfDisplay)
@@ -277,7 +303,7 @@ struct Single_Exercise_View_Time: View {
                 }
                 .buttonStyle(.bordered)
                 .sheet(isPresented:$showingTimeVew, content: {time_entry(current_exercise_name: current_exercise_name).presentationDetents([.medium])})
-                NavigationLink(destination: Entries_List(current_exercise_name: current_exercise_name)){
+                NavigationLink(destination: Entries_List_Time(current_exercise_name: current_exercise_name)){
                     Text("View Entries")
                         .foregroundColor(.black)
                 }
@@ -304,8 +330,7 @@ struct Single_Exercise_View_Time: View {
         for data in enteries {
             if(data.exercise_name == current_exercise_name) {
                 let timestamp = formatter.string(from: data.timestamp!)
-                let duration =  formatter.string(from: data.duration!)
-                let point: data_value = data_value(name:current_exercise_name, duration:duration,timestamp:timestamp)
+                let point: data_value = data_value(name:current_exercise_name, duration:data.duration,timestamp:timestamp)
                 return_arr.append(point)
             }
         }
@@ -315,7 +340,7 @@ struct Single_Exercise_View_Time: View {
     // Struct to store data for plotting, id is name, type string
     struct data_value{
         var name : String // id
-        var duration: String
+        var duration: Int64
         var timestamp : String
     }
     
@@ -350,18 +375,17 @@ struct time_entry: View {
         }
         
         Button("Submit", action: {
-            var components = DateComponents()
-            components.hour = hours
-            components.minute = min
-            components.second = sec
-            let date = Calendar.current.date(from: components)
-            addEntry(duration:(date)!)
+            var time_in_seconds:Int64 = 0
+            time_in_seconds += Int64((hours*3600))
+            time_in_seconds += Int64((min*60))
+            time_in_seconds += Int64(sec)
+            addEntry(duration:time_in_seconds)
             
         })
     }
     
     // Creating new entry
-    func addEntry(duration: Date)->Void{
+    func addEntry(duration: Int64)->Void{
         let timestamp = Date().timeIntervalSince1970
         withAnimation{
             // Create new exercise entry

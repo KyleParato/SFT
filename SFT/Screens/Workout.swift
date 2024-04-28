@@ -44,6 +44,10 @@ struct Workout: View {
                     //List view for workouts
                    NavigationView {
                         List {
+                            NavigationLink(destination: Exercise_List(workout_name: "All Exercises")){
+                                Image(systemName: "magnifyingglass.circle.fill")
+                                Text("All Exercises")
+                            }
                             // Displays filtered workout names
                             ForEach(filteredSearch, id: \.self){ workout in
                                 // Navigate to exercise page, must pass workout name as string

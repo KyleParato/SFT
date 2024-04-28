@@ -55,6 +55,17 @@ struct Exercise_List: View {
                             // Display all workouts with parent workout name equal to
                             // the workout name passed into the view
                             ForEach(filteredSearch, id: \.name){ exercise in
+                                if(workout_name == "All Exercises"){
+                                    NavigationLink(destination: Exercise_Tab_View(workout_name: workout_name, current_exercise_name: exercise.name)){
+                                        if(exercise.type==1){
+                                            Image(systemName: "stopwatch.fill")
+                                        }
+                                        if(exercise.type==0){
+                                            Image(systemName: "dumbbell.fill")
+                                        }
+                                        Text(exercise.name)
+                                    }
+                                }
                                 if(exercise.workout_name == workout_name){
                                     // Navigate to tab view of exercises, tag is
                                     // current_exercise_name
@@ -227,9 +238,7 @@ struct Exercise_List: View {
     func generate_exercise_list(exercises : FetchedResults<Exercises>) -> [exercise_filter]{
         var returnarr : [exercise_filter] = []
         for exercise in exercises{
-            if(exercise.workout_name == workout_name){
-                returnarr.append(exercise_filter(name:exercise.name!,workout_name: exercise.workout_name!,type:exercise.type))
-            }
+            returnarr.append(exercise_filter(name:exercise.name!,workout_name: exercise.workout_name!,type:exercise.type))
         }
         return returnarr
     }

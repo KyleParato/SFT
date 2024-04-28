@@ -13,10 +13,13 @@ struct SFTApp: App {
 
     var body: some Scene {
         WindowGroup {
+            
             // Old demo view
 //            HomeScreen()
+            
             // Current App screens
             Workout().environment(\.managedObjectContext, persistenceController.container.viewContext)
+            
         }
     }
 }
