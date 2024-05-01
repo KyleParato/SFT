@@ -21,7 +21,6 @@ struct Exercise_List: View {
     @State var workout_name: String
     
     // variables used to control popup menu
-    @State private var showAlert = false
     @State private var exercise = ""
     @State private var searchItem = ""
     @State private var showSettings = false
@@ -30,6 +29,10 @@ struct Exercise_List: View {
     @State private var showingExerciseSheet = false
     @State private var isSelected = false
     @State private var isSelected2 = false
+    
+    //variables for showing alerts
+    @State private var showAlert = false
+    @State var alertTitle = ""
     
     @State private var exerciseType: Int16 = 0
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
@@ -133,9 +136,19 @@ struct Exercise_List: View {
                                 .padding(.horizontal, 75)
                                   
                             Button{
-                                
-                                addExercise(exercise_name: exercise, exercise_type: exerciseType, workout_name: workout_name)
-                                showingExerciseSheet.toggle()
+                                if (exercise == ""){
+                                    alertTitle = "You did not enter a name"
+                                    showAlert.toggle()
+                                } else if (isSelected == false && isSelected2 == false) {
+                                    alertTitle = "You did not choose an exercise type"
+                                    showAlert.toggle()
+                                } else if (exercise.workout_name == workout_name && exercise.name ==  exercise_name){
+                                    
+                                }
+                                else{
+                                    addExercise(exercise_name: exercise, exercise_type: exerciseType, workout_name: workout_name)
+                                    showingExerciseSheet.toggle()
+                                }
                                 isSelected = false
                                 isSelected2 = false
                             } label: {
@@ -145,7 +158,10 @@ struct Exercise_List: View {
                                 .foregroundColor(.white)
                                 .background(.black, in: RoundedRectangle(cornerRadius: 10))
                             }
-                        
+                            .alert(isPresented: $showAlert, content: {
+                                getAlert()
+                            })
+
                             Button{
                                 showingExerciseSheet.toggle()
                                 isSelected = false
@@ -202,11 +218,11 @@ struct Exercise_List: View {
     }
     // function for ceating exercise in data base
     private func addExercise(exercise_name: String, exercise_type: Int16, workout_name: String){
-        for exercise in exercises{
-            if (exercise.workout_name == workout_name && exercise.name ==  exercise_name){
-                return
-            }
-        }
+//        for exercise in exercises{
+//            if (exercise.workout_name == workout_name && exercise.name ==  exercise_name){
+//                return
+//            }
+//        }
         withAnimation{
             // Create new exercise object and assign data
             let newExercise = Exercises(context: viewContext)
@@ -258,6 +274,13 @@ struct Exercise_List: View {
         
     }
     
+    //function for showing alerts
+    func getAlert() -> Alert {
+        return Alert(
+            title: Text(alertTitle),
+            dismissButton: .destructive(Text("Ok, got it!"))
+        )
+    }
 }
 
 struct SelectButton: View {
