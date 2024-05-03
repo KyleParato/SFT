@@ -32,6 +32,7 @@ struct Exercise_List: View {
     
     //variables for showing alerts
     @State private var showAlert = false
+    @State private var conflictAlert = false //var for exercise name conflict alert
     @State var alertTitle = ""
     
     @State private var exerciseType: Int16 = 0
@@ -49,7 +50,7 @@ struct Exercise_List: View {
         
         //Stores names of exercises and their workout name
         let exercise_name_list = generate_exercise_list(exercises:exercises)
-        
+
         NavigationStack{
             ZStack{
                 VStack{
@@ -142,15 +143,14 @@ struct Exercise_List: View {
                                 } else if (isSelected == false && isSelected2 == false) {
                                     alertTitle = "You did not choose an exercise type"
                                     showAlert.toggle()
-                                } else if (exercise.workout_name == workout_name && exercise.name ==  exercise_name){
-                                    
-                                }
-                                else{
+                                } else{
                                     addExercise(exercise_name: exercise, exercise_type: exerciseType, workout_name: workout_name)
                                     showingExerciseSheet.toggle()
                                 }
+                                
                                 isSelected = false
                                 isSelected2 = false
+                                exercise = ""
                             } label: {
                                 Text("Add New Exercise")
                                 .padding(.horizontal, 58)
@@ -161,11 +161,20 @@ struct Exercise_List: View {
                             .alert(isPresented: $showAlert, content: {
                                 getAlert()
                             })
+                            
+//                            alert for exercise name conflict
+//                            .alert(isPresented: $conflictAlert) {
+//                               Alert(
+//                                title: Text("Looks like this exercise name is already taken"),
+//                                dismissButton: .default(Text("Ok got it!"))
+//                               )
+//                            }
 
                             Button{
                                 showingExerciseSheet.toggle()
                                 isSelected = false
                                 isSelected2 = false
+                                exercise = ""
                             } label: {
                                 Text("Cancel")
                                     .padding(.horizontal, 100)
@@ -217,10 +226,12 @@ struct Exercise_List: View {
         }
     }
     // function for ceating exercise in data base
-    private func addExercise(exercise_name: String, exercise_type: Int16, workout_name: String){
+    private func addExercise(exercise_name: String, exercise_type: Int16, workout_name: String) {
 //        for exercise in exercises{
 //            if (exercise.workout_name == workout_name && exercise.name ==  exercise_name){
 //                return
+//            } else {
+//                return conflictAlert.toggle()
 //            }
 //        }
         withAnimation{
@@ -240,6 +251,7 @@ struct Exercise_List: View {
             }
         }
     }
+       
     func delete(indexSet:IndexSet){
         indexSet.map { exercises[$0]}.forEach(viewContext.delete)
         do{
@@ -278,7 +290,7 @@ struct Exercise_List: View {
     func getAlert() -> Alert {
         return Alert(
             title: Text(alertTitle),
-            dismissButton: .destructive(Text("Ok, got it!"))
+            dismissButton: .default(Text("Ok, got it!"))
         )
     }
 }

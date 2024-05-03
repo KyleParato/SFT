@@ -18,12 +18,15 @@ struct Workout: View {
     private var workouts: FetchedResults<Workouts>
     
     // variables used to control popup menu
-    @State private var showAlert = false
     @State private var showingWorkoutSheet = false
     @State private var workout = ""
     @State private var searchItem = ""
     @State private var showSettings = false
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    
+    // variables for alerts
+    @State private var showAlert = false
+    @State var alertTitle = ""
     
     var color_Text: Color {
         if isDarkMode == true { return .white
@@ -87,8 +90,14 @@ struct Workout: View {
                                 .padding(.horizontal, 75)
                                   
                             Button{
-                                addWorkout(workout_name: workout)
-                                showingWorkoutSheet.toggle()
+                                if (workout == "") {
+                                    alertTitle = "You did not enter a name"
+                                    showAlert.toggle()
+                                } else {
+                                    addWorkout(workout_name: workout)
+                                    showingWorkoutSheet.toggle()
+                                    workout = ""
+                                }
 
                             } label: {
                                 Text("Add New Workout")
@@ -100,6 +109,7 @@ struct Workout: View {
                         
                             Button{
                                 showingWorkoutSheet.toggle()
+                                workout = ""
 
                             } label: {
                                 Text("Cancel")
@@ -108,6 +118,9 @@ struct Workout: View {
                                     .foregroundColor(.white)
                                     .background(.red, in: RoundedRectangle(cornerRadius: 10))
                             }
+                            .alert(isPresented: $showAlert, content: {
+                                getAlert()
+                            })
                             
                             .frame(alignment: .bottom)
                             
@@ -209,5 +222,12 @@ struct Workout: View {
     private func Settings_button() {
         showSettings = true
         
+    }
+    
+    func getAlert() -> Alert {
+        return Alert(
+            title: Text(alertTitle),
+            dismissButton: .default(Text("Ok, got it!"))
+        )
     }
 }
