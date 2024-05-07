@@ -171,7 +171,7 @@ struct weight_entry: View {
                 weight = Double(weight_in)!
                 reps = Int16(reps_in)!
                 addEntry(weight:weight,reps:reps)
-                self.presentationMode.wrappedValue.dismiss()
+                
                 
             })
             .padding(.horizontal, 58)
