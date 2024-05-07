@@ -59,21 +59,9 @@ struct Exercise_List: View {
                             // Display all workouts with parent workout name equal to
                             // the workout name passed into the view
                             ForEach(filteredSearch, id: \.name){ exercise in
-                                if(workout_name == "All Exercises"){
-                                    NavigationLink(destination: Exercise_Tab_View(workout_name: workout_name, current_exercise_name: exercise.name)){
-                                        if(exercise.type==1){
-                                            Image(systemName: "stopwatch.fill")
-                                        }
-                                        if(exercise.type==0){
-                                            Image(systemName: "dumbbell.fill")
-                                        }
-                                        Text(exercise.name)
-                                    }
-                                }
                                 if(exercise.workout_name == workout_name){
                                     // Navigate to tab view of exercises, tag is
                                     // current_exercise_name
-                                    
                                     NavigationLink(destination: Exercise_Tab_View(workout_name: workout_name, current_exercise_name: exercise.name)){
                                         if(exercise.type==1){
                                             Image(systemName: "stopwatch.fill")
@@ -227,13 +215,13 @@ struct Exercise_List: View {
     }
     // function for ceating exercise in data base
     private func addExercise(exercise_name: String, exercise_type: Int16, workout_name: String) {
-//        for exercise in exercises{
-//            if (exercise.workout_name == workout_name && exercise.name ==  exercise_name){
-//                return
-//            } else {
+        for exercise in exercises{
+            if (exercise.workout_name == workout_name && exercise.name ==  exercise_name){
+                return
+            } //else {
 //                return conflictAlert.toggle()
 //            }
-//        }
+        }
         withAnimation{
             // Create new exercise object and assign data
             let newExercise = Exercises(context: viewContext)
@@ -266,7 +254,9 @@ struct Exercise_List: View {
     func generate_exercise_list(exercises : FetchedResults<Exercises>) -> [exercise_filter]{
         var returnarr : [exercise_filter] = []
         for exercise in exercises{
-            returnarr.append(exercise_filter(name:exercise.name!,workout_name: exercise.workout_name!,type:exercise.type))
+            if exercise.workout_name == workout_name{
+                returnarr.append(exercise_filter(name:exercise.name!,workout_name: exercise.workout_name!,type:exercise.type))
+            }
         }
         return returnarr
     }

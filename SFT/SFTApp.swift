@@ -15,7 +15,7 @@ struct SFTApp: App {
         WindowGroup {
             
             // Old demo view
-//            HomeScreen()
+            //HomeScreen()
             
             // Current App screens
             Workout().environment(\.managedObjectContext, persistenceController.container.viewContext)
