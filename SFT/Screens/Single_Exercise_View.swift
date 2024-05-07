@@ -96,7 +96,7 @@ struct Single_Exercise_View_Static: View {
                     showingWeightVew.toggle()
                 }
                 .buttonStyle(.bordered)
-                .sheet(isPresented:$showingWeightVew, content: {weight_entry(current_exercise_name: current_exercise_name).presentationDetents([.medium])})
+                .sheet(isPresented:$showingWeightVew, content: {weight_entry(showingWeightVew:true, current_exercise_name: current_exercise_name).presentationDetents([.medium])})
                 NavigationLink(destination: Entries_List_Static(current_exercise_name: current_exercise_name)){
                     Text("View Entries")
                         .foregroundColor(.black)
@@ -142,9 +142,11 @@ struct Single_Exercise_View_Static: View {
 }
 
 struct weight_entry: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
     
+    @State var showingWeightVew :Bool
     @State var current_exercise_name :String
     @State var weight_in : String = ""
     @State var reps_in: String = ""
@@ -152,19 +154,41 @@ struct weight_entry: View {
     @State var reps:Int16 = 0
     
     var body: some View {
-        TextField("Weight", text: $weight_in)
-            .disableAutocorrection(true)
-            .textFieldStyle(.roundedBorder)
-        TextField("Reps", text: $reps_in)
-            .disableAutocorrection(true)
-            .textFieldStyle(.roundedBorder)
-        
-        Button("Submit", action: {
-            weight = Double(weight_in)!
-            reps = Int16(reps_in)!
-            addEntry(weight:weight,reps:reps)
+        VStack{
+            Text("Add New Entry")
+                .font(.system(size: 20).weight(.bold))
+                .padding()
+            TextField("Weight", text: $weight_in)
+                .disableAutocorrection(true)
+                .textFieldStyle(.roundedBorder)
+                .padding(.horizontal, 75)
+            TextField("Reps", text: $reps_in)
+                .disableAutocorrection(true)
+                .textFieldStyle(.roundedBorder)
+                .padding(.horizontal, 75)
             
-        })
+            Button("Add Entry", action: {
+                weight = Double(weight_in)!
+                reps = Int16(reps_in)!
+                addEntry(weight:weight,reps:reps)
+                self.presentationMode.wrappedValue.dismiss()
+                
+            })
+            .padding(.horizontal, 58)
+            .padding(.vertical, 15)
+            .foregroundColor(.white)
+            .background(.black, in: RoundedRectangle(cornerRadius: 10))
+            Button{
+                self.presentationMode.wrappedValue.dismiss()
+                
+            } label: {
+                Text("Cancel")
+                    .padding(.horizontal, 75)
+                    .padding(.vertical, 15)
+                    .foregroundColor(.white)
+                    .background(.red, in: RoundedRectangle(cornerRadius: 10))
+            }
+        }
             
     }
     
@@ -349,6 +373,7 @@ struct Single_Exercise_View_Time: View {
 struct time_entry: View {
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State var current_exercise_name :String
     @State var hours:Int = 0
@@ -356,32 +381,53 @@ struct time_entry: View {
     @State var sec:Int = 0
     
     var body: some View {
-        HStack{
-            Picker("",selection: $hours){
-                ForEach(0..<999, id: \.self){ i in
-                    Text("\(i) hours").tag(i)
-                }
-            }.pickerStyle(WheelPickerStyle())
-            Picker("", selection: $min){
-                ForEach(0..<60, id: \.self) { i in
-                    Text("\(i) min").tag(i)
-                }
-            }.pickerStyle(WheelPickerStyle())
-            Picker("", selection: $sec){
-                ForEach(0..<60, id: \.self) { i in
-                    Text("\(i) sec").tag(i)
-                }
-            }.pickerStyle(WheelPickerStyle())
-        }
-        
-        Button("Submit", action: {
-            var time_in_seconds:Int64 = 0
-            time_in_seconds += Int64((hours*3600))
-            time_in_seconds += Int64((min*60))
-            time_in_seconds += Int64(sec)
-            addEntry(duration:time_in_seconds)
+        VStack{
+            Text("Add New Entry")
+                .font(.system(size: 20).weight(.bold))
+                .padding()
+            HStack{
+                Picker("",selection: $hours){
+                    ForEach(0..<999, id: \.self){ i in
+                        Text("\(i) hours").tag(i)
+                    }
+                }.pickerStyle(WheelPickerStyle())
+                Picker("", selection: $min){
+                    ForEach(0..<60, id: \.self) { i in
+                        Text("\(i) min").tag(i)
+                    }
+                }.pickerStyle(WheelPickerStyle())
+                Picker("", selection: $sec){
+                    ForEach(0..<60, id: \.self) { i in
+                        Text("\(i) sec").tag(i)
+                    }
+                }.pickerStyle(WheelPickerStyle())
+            }
             
-        })
+            
+            Button("Add Entry", action: {
+                var time_in_seconds:Int64 = 0
+                time_in_seconds += Int64((hours*3600))
+                time_in_seconds += Int64((min*60))
+                time_in_seconds += Int64(sec)
+                addEntry(duration:time_in_seconds)
+                self.presentationMode.wrappedValue.dismiss()
+                
+            })
+            .padding(.horizontal, 58)
+            .padding(.vertical, 15)
+            .foregroundColor(.white)
+            .background(.black, in: RoundedRectangle(cornerRadius: 10))
+            Button{
+                self.presentationMode.wrappedValue.dismiss()
+                
+            } label: {
+                Text("Cancel")
+                    .padding(.horizontal, 75)
+                    .padding(.vertical, 15)
+                    .foregroundColor(.white)
+                    .background(.red, in: RoundedRectangle(cornerRadius: 10))
+            }
+        }
     }
     
     // Creating new entry
