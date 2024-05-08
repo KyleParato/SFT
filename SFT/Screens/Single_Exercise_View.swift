@@ -153,6 +153,11 @@ struct weight_entry: View {
     @State var weight:Double = 0.0
     @State var reps:Int16 = 0
     
+    //variables for showing error alerts
+    @State private var showAlert = false
+    @State var alertTitle = ""
+    
+    
     var body: some View {
         VStack{
             Text("Add New Entry")
@@ -167,17 +172,34 @@ struct weight_entry: View {
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal, 75)
             
-            Button("Add Entry", action: {
-                weight = Double(weight_in)!
-                reps = Int16(reps_in)!
-                addEntry(weight:weight,reps:reps)
+            Button {
+                if (weight_in == "" && reps_in == ""){
+                    alertTitle = "Looks like you did not enter any values"
+                    showAlert.toggle()
+                } else if (weight_in == ""){
+                    alertTitle = "You did not enter a weight value"
+                    showAlert.toggle()
+                } else if (reps_in == ""){
+                    alertTitle = "You did not enter any reps"
+                    showAlert.toggle()
+                } else {
+                    weight = Double(weight_in)!
+                    reps = Int16(reps_in)!
+                    addEntry(weight:weight,reps:reps)
+                    self.presentationMode.wrappedValue.dismiss()
+                }
                 
-                
+            } label: {
+                Text("Add Entry")
+                .padding(.horizontal, 58)
+                .padding(.vertical, 15)
+                .foregroundColor(.white)
+                .background(.black, in: RoundedRectangle(cornerRadius: 10))
+            }
+            .alert(isPresented: $showAlert, content: {
+                getAlert()
             })
-            .padding(.horizontal, 58)
-            .padding(.vertical, 15)
-            .foregroundColor(.white)
-            .background(.black, in: RoundedRectangle(cornerRadius: 10))
+            
             Button{
                 self.presentationMode.wrappedValue.dismiss()
                 
@@ -210,6 +232,13 @@ struct weight_entry: View {
             }
         }
         
+    }
+    
+    func getAlert() -> Alert {
+        return Alert(
+            title: Text(alertTitle),
+            dismissButton: .default(Text("Ok, got it!"))
+        )
     }
 }
 
@@ -380,6 +409,10 @@ struct time_entry: View {
     @State var min:Int = 0
     @State var sec:Int = 0
     
+    //variables for showing error alerts
+    @State private var showAlert = false
+    @State var alertTitle = ""
+    
     var body: some View {
         VStack{
             Text("Add New Entry")
@@ -404,19 +437,31 @@ struct time_entry: View {
             }
             
             
-            Button("Add Entry", action: {
-                var time_in_seconds:Int64 = 0
-                time_in_seconds += Int64((hours*3600))
-                time_in_seconds += Int64((min*60))
-                time_in_seconds += Int64(sec)
-                addEntry(duration:time_in_seconds)
-                self.presentationMode.wrappedValue.dismiss()
+            Button {
+                if (hours == 0 && min == 0 && sec == 0) {
+                    alertTitle = "Looks like you did not enter a time"
+                    showAlert.toggle()
+                } else {
+                    var time_in_seconds:Int64 = 0
+                    time_in_seconds += Int64((hours*3600))
+                    time_in_seconds += Int64((min*60))
+                    time_in_seconds += Int64(sec)
+                    addEntry(duration:time_in_seconds)
+                    self.presentationMode.wrappedValue.dismiss()
+                }
                 
+            } label: {
+                Text("Add Entry")
+                .padding(.horizontal, 58)
+                .padding(.vertical, 15)
+                .foregroundColor(.white)
+                .background(.black, in: RoundedRectangle(cornerRadius: 10))
+            }
+            .alert(isPresented: $showAlert, content: {
+                getAlert()
             })
-            .padding(.horizontal, 58)
-            .padding(.vertical, 15)
-            .foregroundColor(.white)
-            .background(.black, in: RoundedRectangle(cornerRadius: 10))
+            
+            
             Button{
                 self.presentationMode.wrappedValue.dismiss()
                 
@@ -447,5 +492,12 @@ struct time_entry: View {
             }
         }
         
+    }
+    
+    func getAlert() -> Alert {
+        return Alert(
+            title: Text(alertTitle),
+            dismissButton: .default(Text("Ok, got it!"))
+        )
     }
 }
