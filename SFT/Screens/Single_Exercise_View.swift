@@ -173,6 +173,7 @@ struct weight_entry: View {
                 .padding(.horizontal, 75)
             
             Button {
+                //if statements for error checking
                 if (weight_in == "" && reps_in == ""){
                     alertTitle = "Looks like you did not enter any values"
                     showAlert.toggle()
