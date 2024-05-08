@@ -75,53 +75,54 @@ struct Workout: View {
                     
                     //sheet popup for adding workout
                     .sheet(isPresented: $showingWorkoutSheet, content: {
-                        VStack(content: {
-                            
-                            Text("Add New Workout")
-                                .font(.system(size: 20).weight(.bold))
-                                .padding()
-
-                            TextField("Workout", text: $workout)
-                                .textFieldStyle(.roundedBorder)
-                                .padding(.horizontal, 75)
-                                  
-                            Button{
-                                if (workout == "") {
-                                    alertTitle = "You did not enter a name"
-                                    showAlert.toggle()
-                                } else {
-                                    addWorkout(workout_name: workout)
-                                    showingWorkoutSheet.toggle()
-                                    workout = ""
-                                }
-
-                            } label: {
-                                Text("Add New Workout")
-                                .padding(.horizontal, 58)
-                                .padding(.vertical, 15)
-                                .foregroundColor(.white)
-                                .background(.black, in: RoundedRectangle(cornerRadius: 10))
-                            }
-                        
-                            Button{
-                                showingWorkoutSheet.toggle()
-                                workout = ""
-
-                            } label: {
-                                Text("Cancel")
-                                    .padding(.horizontal, 100)
-                                    .padding(.vertical, 15)
-                                    .foregroundColor(.white)
-                                    .background(.red, in: RoundedRectangle(cornerRadius: 10))
-                            }
-                            .alert(isPresented: $showAlert, content: {
-                                getAlert()
-                            })
-                            
-                            .frame(alignment: .bottom)
-                            
-                        })
-                        .presentationDetents([.fraction(0.40)])
+                        workout_entry().presentationDetents([.medium])
+//                        VStack(content: {
+//                            
+//                            Text("Add New Workout")
+//                                .font(.system(size: 20).weight(.bold))
+//                                .padding()
+//
+//                            TextField("Workout", text: $workout)
+//                                .textFieldStyle(.roundedBorder)
+//                                .padding(.horizontal, 75)
+//                                  
+//                            Button{
+//                                if (workout == "") {
+//                                    alertTitle = "You did not enter a name"
+//                                    showAlert.toggle()
+//                                } else {
+//                                    addWorkout(workout_name: workout)
+//                                    showingWorkoutSheet.toggle()
+//                                    workout = ""
+//                                }
+//
+//                            } label: {
+//                                Text("Add New Workout")
+//                                .padding(.horizontal, 58)
+//                                .padding(.vertical, 15)
+//                                .foregroundColor(.white)
+//                                .background(.black, in: RoundedRectangle(cornerRadius: 10))
+//                            }
+//                        
+//                            Button{
+//                                showingWorkoutSheet.toggle()
+//                                workout = ""
+//
+//                            } label: {
+//                                Text("Cancel")
+//                                    .padding(.horizontal, 100)
+//                                    .padding(.vertical, 15)
+//                                    .foregroundColor(.white)
+//                                    .background(.red, in: RoundedRectangle(cornerRadius: 10))
+//                            }
+//                            .alert(isPresented: $showAlert, content: {
+//                                getAlert()
+//                            })
+//                            
+//                            .frame(alignment: .bottom)
+//                            
+//                        })
+//                        .presentationDetents([.fraction(0.40)])
                     })
                     
                 }
@@ -218,6 +219,125 @@ struct Workout: View {
     private func Settings_button() {
         showSettings = true
         
+    }
+    
+    func getAlert() -> Alert {
+        return Alert(
+            title: Text(alertTitle),
+            dismissButton: .default(Text("Ok, got it!"))
+        )
+    }
+}
+
+struct workout_entry : View {
+    // Fetch all workouts and store in workouts var
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Workouts.name, ascending: true)],
+        animation: .default)
+    private var workouts: FetchedResults<Workouts>
+    
+    // variables used to control popup menu
+    @State private var showingWorkoutSheet = false
+    @State private var workout = ""
+    @State private var searchItem = ""
+    @State private var showSettings = false
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    
+    // variables for alerts
+    @State private var showAlert = false
+    @State var alertTitle = ""
+    
+    var color_Text: Color {
+        if isDarkMode == true { return .white
+        } else { return .black
+        }
+    }
+    
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    // Database Context
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    var body : some View {
+        VStack(content: {
+            Text("Add New Workout")
+                .font(.system(size: 20).weight(.bold))
+                .padding()
+
+            TextField("Workout", text: $workout)
+                .textFieldStyle(.roundedBorder)
+                .padding(.horizontal, 75)
+                  
+            Button{
+                if (workout == "") {
+                    alertTitle = "You did not enter a name"
+                    showAlert.toggle()
+                } else {
+                    var al : Bool = addWorkout(workout_name: workout)
+                    showingWorkoutSheet.toggle()
+                    workout = ""
+                    
+                    if (al == true){
+                        //                                        conflictAlert.toggle()
+                        alertTitle = "Looks like this workout name is already taken"
+                        showAlert.toggle()
+                    }
+                    if(al == false){
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }
+
+            } label: {
+                Text("Add New Workout")
+                .padding(.horizontal, 58)
+                .padding(.vertical, 15)
+                .foregroundColor(.white)
+                .background(.black, in: RoundedRectangle(cornerRadius: 10))
+            }
+        
+            Button{
+                showingWorkoutSheet.toggle()
+                workout = ""
+
+            } label: {
+                Text("Cancel")
+                    .padding(.horizontal, 100)
+                    .padding(.vertical, 15)
+                    .foregroundColor(.white)
+                    .background(.red, in: RoundedRectangle(cornerRadius: 10))
+            }
+            .alert(isPresented: $showAlert, content: {
+                getAlert()
+            })
+            
+            .frame(alignment: .bottom)
+            
+        })
+        .presentationDetents([.fraction(0.40)])
+    }
+    
+    // function for ceating workout in data base
+    private func addWorkout(workout_name: String) -> Bool{
+        for workout in workouts {
+            if workout_name == workout.name!{
+                return true
+            }
+        }
+        withAnimation{
+            // Store new workout
+            let newWorkout = Workouts(context: viewContext)
+            newWorkout.name = workout_name
+            // Reset popup text box
+            workout = ""
+            // Save workout to db
+            do{
+                try viewContext.save()
+            }catch{
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+        return false
     }
     
     func getAlert() -> Alert {
