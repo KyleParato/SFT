@@ -14,8 +14,19 @@ struct Single_Exercise_View_Static: View {
     @Environment(\.managedObjectContext) private var viewContext
     // Color Text Boolean for dark mode
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
-    private var color_Text: Color {
+    
+    var color_Text: Color {
         if isDarkMode == true { return .white
+        } else { return .black
+        }
+    }
+    var color_Text2: Color {
+        if isDarkMode == true { return .black
+        } else { return .white
+        }
+    }
+    private var background_color: Color {
+        if isDarkMode == true { return .gray
         } else { return .black
         }
     }
@@ -95,11 +106,12 @@ struct Single_Exercise_View_Static: View {
                 Button("Add New Entry", systemImage: "plus"){
                     showingWeightVew.toggle()
                 }
+                .foregroundColor(color_Text)
                 .buttonStyle(.bordered)
                 .sheet(isPresented:$showingWeightVew, content: {weight_entry(showingWeightVew:true, current_exercise_name: current_exercise_name).presentationDetents([.medium])})
                 NavigationLink(destination: Entries_List_Static(current_exercise_name: current_exercise_name)){
                     Text("View Entries")
-                        .foregroundColor(.black)
+                        .foregroundColor(color_Text)
                 }
                 .buttonStyle(.bordered)
                 
@@ -268,6 +280,7 @@ struct Single_Exercise_View_Time: View {
     @State private var isGraph: Bool = false
     
     
+    
     // Single exercise view
     var body: some View {
         NavigationStack{
@@ -293,6 +306,7 @@ struct Single_Exercise_View_Time: View {
                         //                    PointMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
                         
                     }
+                    .foregroundColor(.green)
                     .chartYAxis {
                         // Converts seconds to hh:mm:ss on the axis ticks
                         AxisMarks { value in
@@ -318,6 +332,7 @@ struct Single_Exercise_View_Time: View {
                         LineMark( x: .value("Time",$0.timestamp), y: .value("Duration", $0.duration))
                         PointMark(x: .value("Time",$0.timestamp), y: .value("Duration", $0.duration))
                     }
+                    .foregroundColor(.green)
                     .chartYAxis {
                         // Converts seconds to hh:mm:ss on the axis ticks
                         AxisMarks { value in
@@ -359,7 +374,7 @@ struct Single_Exercise_View_Time: View {
                 .sheet(isPresented:$showingTimeVew, content: {time_entry(current_exercise_name: current_exercise_name).presentationDetents([.medium])})
                 NavigationLink(destination: Entries_List_Time(current_exercise_name: current_exercise_name)){
                     Text("View Entries")
-                        .foregroundColor(.black)
+                        .foregroundColor(color_Text)
                 }
                 .buttonStyle(.bordered)
                 

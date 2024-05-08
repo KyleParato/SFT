@@ -44,6 +44,16 @@ struct Exercise_List: View {
         } else { return .black
         }
     }
+    var color_Text2: Color {
+        if isDarkMode == true { return .black
+        } else { return .white
+        }
+    }
+    private var background_color: Color {
+        if isDarkMode == true { return .gray
+        } else { return .black
+        }
+    }
 
 
     // Exercise View
@@ -89,8 +99,8 @@ struct Exercise_List: View {
                             .font(.system(size: 18).weight(.bold))
                             .padding(.horizontal, 85)
                             .padding(.vertical,15)
-                            .foregroundColor(.white)
-                            .background(.black)
+                            .foregroundColor(color_Text2)
+                            .background(background_color)
                             .cornerRadius(20)
                     }
                     //sheet popup for selecting workout type and adding new exercise
@@ -345,6 +355,23 @@ struct Exercise_form : View{
     
     @State private var exerciseType: Int16 = 0
     
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    var color_Text: Color {
+        if isDarkMode == true { return .white
+        } else { return .black
+        }
+    }
+    var color_Text2: Color {
+        if isDarkMode == true { return .black
+        } else { return .white
+        }
+    }
+    private var background_color: Color {
+        if isDarkMode == true { return .gray
+        } else { return .black
+        }
+    }
+    
         var body : some View{
             VStack(content: {
                 Text("Add New Exercise")
@@ -384,7 +411,7 @@ struct Exercise_form : View{
                         alertTitle = "You did not choose an exercise type"
                         showAlert.toggle()
                     } else{
-                        var al:Bool = addExercise(exercise_name: exercise, exercise_type: exerciseType, workout_name: workout_name)
+                        let al:Bool = addExercise(exercise_name: exercise, exercise_type: exerciseType, workout_name: workout_name)
                         
                         if (al == true){
                             //                                        conflictAlert.toggle()
@@ -406,8 +433,8 @@ struct Exercise_form : View{
                     Text("Add New Exercise")
                         .padding(.horizontal, 58)
                         .padding(.vertical, 15)
-                        .foregroundColor(.white)
-                        .background(.black, in: RoundedRectangle(cornerRadius: 10))
+                        .foregroundColor(color_Text)
+                        .background(background_color, in: RoundedRectangle(cornerRadius: 10))
                 }
                 .alert(isPresented: $showAlert, content: {
                     getAlert()
