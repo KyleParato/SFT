@@ -168,6 +168,25 @@ struct weight_entry: View {
     //variables for showing error alerts
     @State private var showAlert = false
     @State var alertTitle = ""
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    var color_Text: Color {
+        if isDarkMode == true { return .white
+        } else { return .black
+        }
+    }
+    var color_Text2: Color {
+        if isDarkMode == true { return .black
+        } else { return .white
+        }
+    }
+    
+    private var background_color: Color {
+        if isDarkMode == true { return .gray
+        } else { return .black
+        }
+    }
+    
+    
     
     
     var body: some View {
@@ -206,8 +225,8 @@ struct weight_entry: View {
                 Text("Add Entry")
                 .padding(.horizontal, 58)
                 .padding(.vertical, 15)
-                .foregroundColor(.white)
-                .background(.black, in: RoundedRectangle(cornerRadius: 10))
+                .foregroundColor(color_Text2)
+                .background(background_color, in: RoundedRectangle(cornerRadius: 10))
             }
             .alert(isPresented: $showAlert, content: {
                 getAlert()
@@ -371,6 +390,7 @@ struct Single_Exercise_View_Time: View {
                     showingTimeVew.toggle()
                 }
                 .buttonStyle(.bordered)
+                .foregroundColor(color_Text)
                 .sheet(isPresented:$showingTimeVew, content: {time_entry(current_exercise_name: current_exercise_name).presentationDetents([.medium])})
                 NavigationLink(destination: Entries_List_Time(current_exercise_name: current_exercise_name)){
                     Text("View Entries")
@@ -428,6 +448,23 @@ struct time_entry: View {
     //variables for showing error alerts
     @State private var showAlert = false
     @State var alertTitle = ""
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    var color_Text: Color {
+        if isDarkMode == true { return .white
+        } else { return .black
+        }
+    }
+    var color_Text2: Color {
+        if isDarkMode == true { return .black
+        } else { return .white
+        }
+    }
+    
+    private var background_color: Color {
+        if isDarkMode == true { return .gray
+        } else { return .black
+        }
+    }
     
     var body: some View {
         VStack{
@@ -470,8 +507,8 @@ struct time_entry: View {
                 Text("Add Entry")
                 .padding(.horizontal, 58)
                 .padding(.vertical, 15)
-                .foregroundColor(.white)
-                .background(.black, in: RoundedRectangle(cornerRadius: 10))
+                .foregroundColor(color_Text2)
+                .background(background_color, in: RoundedRectangle(cornerRadius: 10))
             }
             .alert(isPresented: $showAlert, content: {
                 getAlert()

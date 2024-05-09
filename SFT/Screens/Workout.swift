@@ -89,53 +89,53 @@ struct Workout: View {
 
                         workout_entry().presentationDetents([.medium])
 
-                        VStack(content: {
-                            
-                            Text("Add New Workout")
-                                .font(.system(size: 20).weight(.bold))
-                                .padding()
-
-                            TextField("Workout", text: $workout)
-                                .textFieldStyle(.roundedBorder)
-                                .padding(.horizontal, 75)
-                                  
-                            Button{
-                                if (workout == "") {
-                                    alertTitle = "You did not enter a name"
-                                    showAlert.toggle()
-                                } else {
-                                    addWorkout(workout_name: workout)
-                                    showingWorkoutSheet.toggle()
-                                    workout = ""
-                                }
-
-                            } label: {
-                                Text("Add New Workout")
-                                .padding(.horizontal, 58)
-                                .padding(.vertical, 15)
-                                .foregroundColor(.white)
-                                .background(background_color, in: RoundedRectangle(cornerRadius: 10))
-                            }
-                        
-                            Button{
-                                showingWorkoutSheet.toggle()
-                                workout = ""
-
-                            } label: {
-                                Text("Cancel")
-                                    .padding(.horizontal, 100)
-                                    .padding(.vertical, 15)
-                                    .foregroundColor(.white)
-                                    .background(.red, in: RoundedRectangle(cornerRadius: 10))
-                            }
-                            .alert(isPresented: $showAlert, content: {
-                                getAlert()
-                            })
-                            
-                            .frame(alignment: .bottom)
-                            
-                        })
-                        .presentationDetents([.fraction(0.40)])
+//                        VStack(content: {
+//                            
+//                            Text("Add New Workout")
+//                                .font(.system(size: 20).weight(.bold))
+//                                .padding()
+//
+//                            TextField("Workout", text: $workout)
+//                                .textFieldStyle(.roundedBorder)
+//                                .padding(.horizontal, 75)
+//                                  
+//                            Button{
+//                                if (workout == "") {
+//                                    alertTitle = "You did not enter a name"
+//                                    showAlert.toggle()
+//                                } else {
+//                                    addWorkout(workout_name: workout)
+//                                    showingWorkoutSheet.toggle()
+//                                    workout = ""
+//                                }
+//
+//                            } label: {
+//                                Text("Add New Workout")
+//                                .padding(.horizontal, 58)
+//                                .padding(.vertical, 15)
+//                                .foregroundColor(.white)
+//                                .background(background_color, in: RoundedRectangle(cornerRadius: 10))
+//                            }
+//                        
+//                            Button{
+//                                showingWorkoutSheet.toggle()
+//                                workout = ""
+//
+//                            } label: {
+//                                Text("Cancel")
+//                                    .padding(.horizontal, 100)
+//                                    .padding(.vertical, 15)
+//                                    .foregroundColor(.white)
+//                                    .background(.red, in: RoundedRectangle(cornerRadius: 10))
+//                            }
+//                            .alert(isPresented: $showAlert, content: {
+//                                getAlert()
+//                            })
+//                            
+//                            .frame(alignment: .bottom)
+//                            
+//                        })
+//                        .presentationDetents([.fraction(0.40)])
  
                     })
                     
@@ -266,6 +266,18 @@ struct workout_entry : View {
         } else { return .black
         }
     }
+
+    var color_Text2: Color {
+        if isDarkMode == true { return .black
+        } else { return .white
+        }
+    }
+    
+    private var background_color: Color {
+        if isDarkMode == true { return .gray
+        } else { return .black
+        }
+    }
     
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -306,7 +318,7 @@ struct workout_entry : View {
                 .padding(.horizontal, 58)
                 .padding(.vertical, 15)
                 .foregroundColor(.white)
-                .background(.black, in: RoundedRectangle(cornerRadius: 10))
+                .background(background_color, in: RoundedRectangle(cornerRadius: 10))
             }
         
             Button{
