@@ -433,7 +433,7 @@ struct Exercise_form : View{
                     Text("Add New Exercise")
                         .padding(.horizontal, 58)
                         .padding(.vertical, 15)
-                        .foregroundColor(color_Text)
+                        .foregroundColor(.white)
                         .background(background_color, in: RoundedRectangle(cornerRadius: 10))
                 }
                 .alert(isPresented: $showAlert, content: {
