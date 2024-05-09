@@ -175,11 +175,13 @@ struct weight_entry: View {
                 .disableAutocorrection(true)
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal, 75)
+                .keyboardType(.decimalPad)
             // gathers weight int
             TextField("Reps", text: $reps_in)
                 .disableAutocorrection(true)
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal, 75)
+                .keyboardType(.numberPad)
             // add entry weight with error checking
             Button {
                 //if statements for error checking
