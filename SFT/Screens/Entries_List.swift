@@ -22,18 +22,16 @@ struct Entries_List_Static: View {
     @State var current_exercise_name :String
     @State private var searchItem = ""
     
+    // controls text color and background color
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
-    
     var color_Text: Color {
         if isDarkMode == true { return .white
         } else { return .black
         }
     }
     
-
-    
     var body: some View{
-        
+        // list of entries
         let exercise_name_list = generate_entry_list(entries:enteries)
         NavigationStack{
             VStack{
@@ -72,28 +70,26 @@ struct Entries_List_Static: View {
         }
         
     }
-    
+    // date to string
     private let itemFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         formatter.timeStyle = .medium
         return formatter
     }()
-    
+    // deletes entry from list
     private func deleteEntry(offsets:IndexSet){
         withAnimation{
             offsets.map { enteries[$0] }.forEach(viewContext.delete)
-
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
     }
+    // gathers entries and stores in readable format
     func generate_entry_list(entries : FetchedResults<Exercise_Static>) -> [String]{
         var returnarr :[String] = []
         for entry in enteries{
@@ -101,7 +97,7 @@ struct Entries_List_Static: View {
         }
         return returnarr
     }
-    
+    // deletes all entries
     func deleteAllEntries(){
         for entry in enteries{
             if entry.exercise_name == current_exercise_name{
@@ -109,7 +105,6 @@ struct Entries_List_Static: View {
             }
         }
     }
-    
 }
 
 struct Entries_List_Time: View {
@@ -126,18 +121,15 @@ struct Entries_List_Time: View {
     @State var current_exercise_name :String
     @State private var searchItem = ""
     
+    // controls text color and background color
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
-    
     var color_Text: Color {
         if isDarkMode == true { return .white
         } else { return .black
         }
     }
-    
-
-    
     var body: some View{
-        
+        // list of entries
         let exercise_name_list = generate_entry_list(entries:enteries)
         NavigationStack{
             VStack{
@@ -176,14 +168,14 @@ struct Entries_List_Time: View {
         }
         
     }
-    
+    // date to string
     private let itemFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         formatter.timeStyle = .medium
         return formatter
     }()
-    
+    // deletes entry from list
     private func deleteEntry(offsets:IndexSet){
         withAnimation{
             offsets.map { enteries[$0] }.forEach(viewContext.delete)
@@ -191,13 +183,12 @@ struct Entries_List_Time: View {
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
     }
+    // gathers entries and stores in readable format
     func generate_entry_list(entries : FetchedResults<Exercise_Time>) -> [String]{
         var returnarr :[String] = []
         for entry in enteries{
@@ -205,7 +196,7 @@ struct Entries_List_Time: View {
         }
         return returnarr
     }
-    
+    // deletes all entries
     func deleteAllEntries(){
         for entry in enteries{
             if entry.exercise_name == current_exercise_name{

@@ -9,12 +9,13 @@ import SwiftUI
 import Foundation
 import Charts
 
+// graph view for weight
 struct Single_Exercise_View_Static: View {
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
     // Color Text Boolean for dark mode
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
-    
+    // controls text color and background color
     var color_Text: Color {
         if isDarkMode == true { return .white
         } else { return .black
@@ -31,7 +32,6 @@ struct Single_Exercise_View_Static: View {
         }
     }
 
-   
     // Fetch all static exercise data and store it to var enteries
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Exercise_Static.timestamp, ascending: true)],
@@ -49,45 +49,30 @@ struct Single_Exercise_View_Static: View {
     var body: some View {
         NavigationStack{
             VStack{
-//                Text(current_exercise_name)
-//                    .font(.title)
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                    .padding()
                 // Gather data from enteries
                 let to_plot = create_plot_data()
                 let numberOfDisplay = 5
                 // Plot data to graph
                 if isGraph == false {
-                    
-                    
+                    // Bar graph version
                     Chart(to_plot, id:\.name){
-                        // Bar graph version
                         BarMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
-                        
-                        
-                        // Original line graph with poits idea, uncomment to test
-                        //                    LineMark( x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight))
-                        //                    PointMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
-                        
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .chartScrollableAxes(.horizontal)
                     .chartXVisibleDomain(length: numberOfDisplay)
-                    
                     .aspectRatio(1,contentMode: .fit)
                     .padding(.horizontal,5)
                 } else {
-                    
+                    // Line graph version
                     Chart(to_plot, id:\.name){
                         LineMark( x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight))
                         PointMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
                     }
                     .chartScrollableAxes(.horizontal)
                     .chartXVisibleDomain(length: numberOfDisplay)
-                    
                     .aspectRatio(1,contentMode: .fit)
                     .padding(.horizontal,5)
-                    
                 }
                 
                 HStack {
@@ -97,9 +82,6 @@ struct Single_Exercise_View_Static: View {
                         Text("Line Graph")
                             .padding(.horizontal, 10)
                     })
-                    
-                    
-                    
                 }
                 
                 // Create new entry button
@@ -114,17 +96,11 @@ struct Single_Exercise_View_Static: View {
                         .foregroundColor(color_Text)
                 }
                 .buttonStyle(.bordered)
-                
                 Spacer()
             }
-            
             .navigationTitle(current_exercise_name)
             .padding()
-
-            
-
         }
-
     }
     
     
@@ -153,11 +129,14 @@ struct Single_Exercise_View_Static: View {
     
 }
 
+// gather user input for entry weight
 struct weight_entry: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
+    // closes prompt
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    // holds user input
     @State var showingWeightVew :Bool
     @State var current_exercise_name :String
     @State var weight_in : String = ""
@@ -168,6 +147,7 @@ struct weight_entry: View {
     //variables for showing error alerts
     @State private var showAlert = false
     @State var alertTitle = ""
+    // text color and background color vars
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     var color_Text: Color {
         if isDarkMode == true { return .white
@@ -179,30 +159,28 @@ struct weight_entry: View {
         } else { return .white
         }
     }
-    
     private var background_color: Color {
         if isDarkMode == true { return .gray
         } else { return .black
         }
     }
     
-    
-    
-    
     var body: some View {
         VStack{
             Text("Add New Entry")
                 .font(.system(size: 20).weight(.bold))
                 .padding()
+            // gathers weight float
             TextField("Weight", text: $weight_in)
                 .disableAutocorrection(true)
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal, 75)
+            // gathers weight int
             TextField("Reps", text: $reps_in)
                 .disableAutocorrection(true)
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal, 75)
-            
+            // add entry weight with error checking
             Button {
                 //if statements for error checking
                 if (weight_in == "" && reps_in == ""){
@@ -231,7 +209,7 @@ struct weight_entry: View {
             .alert(isPresented: $showAlert, content: {
                 getAlert()
             })
-            
+            // cancel prompt button
             Button{
                 self.presentationMode.wrappedValue.dismiss()
                 
@@ -243,7 +221,6 @@ struct weight_entry: View {
                     .background(.red, in: RoundedRectangle(cornerRadius: 10))
             }
         }
-            
     }
     
     // Creating new entry
@@ -265,7 +242,7 @@ struct weight_entry: View {
         }
         
     }
-    
+    // generates alerts
     func getAlert() -> Alert {
         return Alert(
             title: Text(alertTitle),
@@ -274,6 +251,7 @@ struct weight_entry: View {
     }
 }
 
+// graph view time
 struct Single_Exercise_View_Time: View {
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
@@ -285,44 +263,30 @@ struct Single_Exercise_View_Time: View {
         }
     }
 
-   
     // Fetch all static exercise data and store it to var enteries
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Exercise_Time.timestamp, ascending: true)],
         animation: .default)
     private var enteries : FetchedResults<Exercise_Time>
     
-    // parent exercise name
+    // parent exercise name and alert vars
     @State var current_exercise_name :String
     @State var showingTimeVew = false
     @State private var showAlert = false
     @State private var isGraph: Bool = false
     
-    
-    
     // Single exercise view
     var body: some View {
         NavigationStack{
             VStack{
-//                Text(current_exercise_name)
-//                    .font(.title)
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                    .padding()
                 // Gather data from enteries
                 let to_plot = create_plot_data()
                 let numberOfDisplay = 5
                 // Plot data to graph
                 if isGraph == false {
-                    
-                    
-                    Chart(to_plot, id:\.name){
-                        // Bar graph version
+                    // Bar graph version
+                   Chart(to_plot, id:\.name){
                         BarMark(x: .value("Time",$0.timestamp), y: .value("Duration", $0.duration))
-                        
-                        
-                        // Original line graph with poits idea, uncomment to test
-                        //                    LineMark( x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight))
-                        //                    PointMark(x: .value("Time",$0.timestamp), y: .value("Weight", $0.weight)).foregroundStyle(by: .value("Reps: ", $0.reps))
                         
                     }
                     .foregroundColor(.green)
@@ -332,6 +296,7 @@ struct Single_Exercise_View_Time: View {
                             AxisGridLine()
                             AxisTick()
                             if let value = value.as(Int.self) {
+                                // converts seconds to hh:mm:ss
                                 let valueLabel = "\(Int(value/3600)):\(Int(value/60)%60):\(Int(value%60))"
                                 AxisValueLabel {
                                     Text(String(valueLabel))
@@ -346,7 +311,7 @@ struct Single_Exercise_View_Time: View {
                     .aspectRatio(1,contentMode: .fit)
                     .padding(.horizontal,5)
                 } else {
-                    
+                    // line graph version
                     Chart(to_plot, id:\.name){
                         LineMark( x: .value("Time",$0.timestamp), y: .value("Duration", $0.duration))
                         PointMark(x: .value("Time",$0.timestamp), y: .value("Duration", $0.duration))
@@ -358,6 +323,7 @@ struct Single_Exercise_View_Time: View {
                             AxisGridLine()
                             AxisTick()
                             if let value = value.as(Int.self) {
+                                // converts seconds to hh:mm:ss
                                 let valueLabel = "\(Int(value/3600)):\(Int(value/60)%60):\(Int(value%60))"
                                 AxisValueLabel {
                                     Text(String(valueLabel))
@@ -367,10 +333,8 @@ struct Single_Exercise_View_Time: View {
                     }
                     .chartScrollableAxes(.horizontal)
                     .chartXVisibleDomain(length: numberOfDisplay)
-                    
                     .aspectRatio(1,contentMode: .fit)
                     .padding(.horizontal,5)
-                    
                 }
                 
                 HStack {
@@ -380,9 +344,6 @@ struct Single_Exercise_View_Time: View {
                         Text("Line Graph")
                             .padding(.horizontal, 10)
                     })
-                    
-                    
-                    
                 }
                 
                 // Create new entry button
@@ -397,17 +358,11 @@ struct Single_Exercise_View_Time: View {
                         .foregroundColor(color_Text)
                 }
                 .buttonStyle(.bordered)
-                
                 Spacer()
             }
-            
             .navigationTitle(current_exercise_name)
             .padding()
-
-            
-
         }
-
     }
     
     
@@ -432,14 +387,15 @@ struct Single_Exercise_View_Time: View {
         var duration: Int64
         var timestamp : String
     }
-    
 }
 
+// gather user input for entry time
 struct time_entry: View {
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
+    // used to close form
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    // holds user input
     @State var current_exercise_name :String
     @State var hours:Int = 0
     @State var min:Int = 0
@@ -449,6 +405,8 @@ struct time_entry: View {
     @State private var showAlert = false
     @State var alertTitle = ""
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    
+    // controls text color and background color
     var color_Text: Color {
         if isDarkMode == true { return .white
         } else { return .black
@@ -459,7 +417,6 @@ struct time_entry: View {
         } else { return .white
         }
     }
-    
     private var background_color: Color {
         if isDarkMode == true { return .gray
         } else { return .black
@@ -471,6 +428,7 @@ struct time_entry: View {
             Text("Add New Entry")
                 .font(.system(size: 20).weight(.bold))
                 .padding()
+            // three wheel pickers for hh:mm:ss
             HStack{
                 Picker("",selection: $hours){
                     ForEach(0..<999, id: \.self){ i in
@@ -489,7 +447,7 @@ struct time_entry: View {
                 }.pickerStyle(WheelPickerStyle())
             }
             
-            
+            // error checking and adding entry time
             Button {
                 if (hours == 0 && min == 0 && sec == 0) {
                     alertTitle = "Looks like you did not enter a time"
@@ -514,7 +472,7 @@ struct time_entry: View {
                 getAlert()
             })
             
-            
+            // cancel and close form
             Button{
                 self.presentationMode.wrappedValue.dismiss()
                 
@@ -546,7 +504,7 @@ struct time_entry: View {
         }
         
     }
-    
+    // generates alerts
     func getAlert() -> Alert {
         return Alert(
             title: Text(alertTitle),

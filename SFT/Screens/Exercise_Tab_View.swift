@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// holds single exercise view in a tab format, allows swipping
 struct Exercise_Tab_View: View {
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
@@ -17,10 +18,12 @@ struct Exercise_Tab_View: View {
         animation: .default)
     private var exercises: FetchedResults<Exercises>
     
+    // control vars
     @State var workout_name : String
     @State var current_exercise_name: String
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
+    // controls text color
     var color_Text: Color {
         if isDarkMode == true { return .white
         } else { return .black
@@ -31,7 +34,7 @@ struct Exercise_Tab_View: View {
         VStack{
             // Tab view
             TabView(selection: $current_exercise_name){
-                // Generate views
+                // Generate views with name as tag
                 ForEach(exercises){ exercise in
                     if(exercise.workout_name == workout_name){
                         if(exercise.type == 0){
@@ -41,7 +44,6 @@ struct Exercise_Tab_View: View {
                             Single_Exercise_View_Time(current_exercise_name: exercise.name!).tag(exercise.name!)
                         }
                     }
-                    
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .always))

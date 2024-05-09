@@ -7,10 +7,10 @@
 
 import SwiftUI
 
+// main view of a workout's exercises
 struct Exercise_List: View {
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
-    
     
     // Fetch all exercises and store to exercises
     @FetchRequest(
@@ -39,6 +39,7 @@ struct Exercise_List: View {
     @State private var exerciseType: Int16 = 0
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
+    // variables to control text color
     var color_Text: Color {
         if isDarkMode == true { return .white
         } else { return .black
@@ -49,12 +50,13 @@ struct Exercise_List: View {
         } else { return .white
         }
     }
+    
+    // dark mode controller
     private var background_color: Color {
         if isDarkMode == true { return .gray
         } else { return .black
         }
     }
-
 
     // Exercise View
     var body: some View {
@@ -62,6 +64,7 @@ struct Exercise_List: View {
         //Stores names of exercises and their workout name
         let exercise_name_list = generate_exercise_list(exercises:exercises)
 
+        // Keeps all views in root stack
         NavigationStack{
             ZStack{
                 VStack{
@@ -86,7 +89,6 @@ struct Exercise_List: View {
                                     
                             }
                             .onDelete(perform: delete)
-                            
                         }
                     }
                     .navigationTitle(workout_name)
@@ -105,100 +107,9 @@ struct Exercise_List: View {
                     }
                     //sheet popup for selecting workout type and adding new exercise
                     .sheet(isPresented:$showingExerciseSheet, content: {Exercise_form(workout_name: workout_name).presentationDetents([.medium])})
-//                    .sheet(isPresented: $showingExerciseSheet, content: {
-//
-//                        VStack(content: {
-//                            Text("Add New Exercise")
-//                                .font(.system(size: 20).weight(.bold))
-//                                .padding()
-//                            
-//                            HStack(content: {
-//                                SelectButton(isSelected: $isSelected, color: .gray, text: "Weight")
-//                                    .onTapGesture{
-//                                        isSelected = true
-//                                        if isSelected{
-//                                            isSelected2 = false
-//                                            exerciseType = 0
-//                                            
-//                                        }
-//                                    }
-//                
-//                                SelectButton(isSelected: $isSelected2, color: .gray, text: "Time")
-//                                    .onTapGesture{
-//                                        isSelected2 = true
-//                                        if isSelected2{
-//                                            isSelected = false
-//                                            exerciseType = 1
-//                                        }
-//                                    }
-//                            })
-//                            
-//                            TextField("Exercise", text: $exercise)
-//                                .textFieldStyle(.roundedBorder)
-//                                .padding(.horizontal, 75)
-//                                  
-//                            Button{
-//                                if (exercise == ""){
-//                                    alertTitle = "You did not enter a name"
-//                                    showAlert.toggle()
-//                                } else if (isSelected == false && isSelected2 == false) {
-//                                    alertTitle = "You did not choose an exercise type"
-//                                    showAlert.toggle()
-//                                } else{
-//                                    var al:Bool = addExercise(exercise_name: exercise, exercise_type: exerciseType, workout_name: workout_name)
-//                    
-//                                    if (al == true){
-////                                        conflictAlert.toggle()
-//                                        alertTitle = "Looks like this exercise name is already taken"
-//                                        showAlert.toggle()
-//                                        
-//                                    }
-//                                    showingExerciseSheet.toggle()
-//                                    
-//                                }
-//                                
-//                                isSelected = false
-//                                isSelected2 = false
-//                                exercise = ""
-//                            } label: {
-//                                Text("Add New Exercise")
-//                                .padding(.horizontal, 58)
-//                                .padding(.vertical, 15)
-//                                .foregroundColor(.white)
-//                                .background(.black, in: RoundedRectangle(cornerRadius: 10))
-//                            }
-//                            .alert(isPresented: $showAlert, content: {
-//                                getAlert()
-//                            })
-//                            
-////                            alert for exercise name conflict
-////                            .alert(isPresented: $conflictAlert) {
-////                               Alert(
-////                                title: Text("Looks like this exercise name is already taken"),
-////                                dismissButton: .default(Text("Ok got it!"))
-////                               )
-////                            }
-//
-//                            Button{
-//                                showingExerciseSheet.toggle()
-//                                isSelected = false
-//                                isSelected2 = false
-//                                exercise = ""
-//                            } label: {
-//                                Text("Cancel")
-//                                    .padding(.horizontal, 100)
-//                                    .padding(.vertical, 15)
-//                                    .foregroundColor(.white)
-//                                    .background(.red, in: RoundedRectangle(cornerRadius: 10))
-//                            }
-//                            
-//                            .frame(alignment: .bottom)
-//                            
-//                        })
-//                        .presentationDetents([.fraction(0.40)])
-//                    })
                 }
             }
+            // toolbar to hold settings button
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button(action: Settings_button){
@@ -217,14 +128,13 @@ struct Exercise_List: View {
                                 .foregroundColor(.white)
                                 .background(.red, in: RoundedRectangle(cornerRadius: 10))
                             }
-                        
                     }
                 }
             }
         }
-        
+        // searchbar
         .searchable(text: $searchItem, placement: .navigationBarDrawer, prompt: "Search Exercises")
-        // filters through workout names
+        // filters through workout names, used in list and searchbar
         var filteredSearch: [exercise_filter] {
             if searchItem.isEmpty {
                 //returns original array if search is empty
@@ -234,34 +144,8 @@ struct Exercise_List: View {
             }
         }
     }
-    // function for ceating exercise in data base
-    private func addExercise(exercise_name: String, exercise_type: Int16, workout_name: String) -> Bool {
-        for exercise in exercises{
-            if (exercise.workout_name == workout_name && exercise.name ==  exercise_name){
-                return true
-            } //else {
-//                return conflictAlert.toggle()
-//            }
-        }
-        withAnimation{
-            // Create new exercise object and assign data
-            let newExercise = Exercises(context: viewContext)
-            newExercise.name = exercise_name
-            newExercise.type = exercise_type
-            newExercise.workout_name = workout_name
-            // Reset popup text field
-            exercise = ""
-            // Save exercise to db
-            do{
-                try viewContext.save()
-            }catch{
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-        return false
-    }
        
+    // delete item from lsit
     func delete(indexSet:IndexSet){
         indexSet.map { exercises[$0]}.forEach(viewContext.delete)
         do{
@@ -283,6 +167,7 @@ struct Exercise_List: View {
         return returnarr
     }
     
+    // created for search bar, name is hashed for easy search
     struct exercise_filter{
         var name : String
         var workout_name: String
@@ -292,7 +177,7 @@ struct Exercise_List: View {
             return name.hashValue
         }
     }
-    
+    // settings button controler
     private func Settings_button() {
         showSettings = true
         
@@ -307,6 +192,7 @@ struct Exercise_List: View {
     }
 }
 
+// button structure
 struct SelectButton: View {
     @Binding var isSelected: Bool
     @State var color: Color
@@ -324,6 +210,7 @@ struct SelectButton: View {
     
 }
 
+// used to gather user input for creating new exercises
 struct Exercise_form : View{
     // Database Context
     @Environment(\.managedObjectContext) private var viewContext
@@ -356,6 +243,8 @@ struct Exercise_form : View{
     @State private var exerciseType: Int16 = 0
     
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    
+    // used to control text color and background color
     var color_Text: Color {
         if isDarkMode == true { return .white
         } else { return .black
@@ -372,101 +261,90 @@ struct Exercise_form : View{
         }
     }
     
-        var body : some View{
-            VStack(content: {
-                Text("Add New Exercise")
-                    .font(.system(size: 20).weight(.bold))
-                    .padding()
-                
-                HStack(content: {
-                    SelectButton(isSelected: $isSelected, color: .gray, text: "Weight")
-                        .onTapGesture{
-                            isSelected = true
-                            if isSelected{
-                                isSelected2 = false
-                                exerciseType = 0
-                                
-                            }
+    var body : some View{
+        VStack(content: {
+            Text("Add New Exercise")
+                .font(.system(size: 20).weight(.bold))
+                .padding()
+            
+            HStack(content: {
+                // gathers exercise type weight
+                SelectButton(isSelected: $isSelected, color: .gray, text: "Weight")
+                    .onTapGesture{
+                        isSelected = true
+                        if isSelected{
+                            isSelected2 = false
+                            exerciseType = 0
                         }
+                    }
+                // gathers exercise type time
+                SelectButton(isSelected: $isSelected2, color: .gray, text: "Time")
+                    .onTapGesture{
+                        isSelected2 = true
+                        if isSelected2{
+                            isSelected = false
+                            exerciseType = 1
+                        }
+                    }
+            })
+            
+            TextField("Exercise", text: $exercise)
+                .textFieldStyle(.roundedBorder)
+                .padding(.horizontal, 75)
+            // error checking and add exercise button
+            Button{
+                if (exercise == ""){
+                    alertTitle = "You did not enter a name"
+                    showAlert.toggle()
+                } else if (isSelected == false && isSelected2 == false) {
+                    alertTitle = "You did not choose an exercise type"
+                    showAlert.toggle()
+                } else{
+                    let al:Bool = addExercise(exercise_name: exercise, exercise_type: exerciseType, workout_name: workout_name)
                     
-                    SelectButton(isSelected: $isSelected2, color: .gray, text: "Time")
-                        .onTapGesture{
-                            isSelected2 = true
-                            if isSelected2{
-                                isSelected = false
-                                exerciseType = 1
-                            }
-                        }
-                })
-                
-                TextField("Exercise", text: $exercise)
-                    .textFieldStyle(.roundedBorder)
-                    .padding(.horizontal, 75)
-                
-                Button{
-                    if (exercise == ""){
-                        alertTitle = "You did not enter a name"
+                    if (al == true){
+                        //                                        conflictAlert.toggle()
+                        alertTitle = "Looks like this exercise name is already taken"
                         showAlert.toggle()
-                    } else if (isSelected == false && isSelected2 == false) {
-                        alertTitle = "You did not choose an exercise type"
-                        showAlert.toggle()
-                    } else{
-                        let al:Bool = addExercise(exercise_name: exercise, exercise_type: exerciseType, workout_name: workout_name)
-                        
-                        if (al == true){
-                            //                                        conflictAlert.toggle()
-                            alertTitle = "Looks like this exercise name is already taken"
-                            showAlert.toggle()
-                            
-                        }
-                        if(al == false){
-                            self.presentationMode.wrappedValue.dismiss()
-                        }
-                        
                         
                     }
-                    
-                    isSelected = false
-                    isSelected2 = false
-                    exercise = ""
-                } label: {
-                    Text("Add New Exercise")
-                        .padding(.horizontal, 58)
-                        .padding(.vertical, 15)
-                        .foregroundColor(.white)
-                        .background(background_color, in: RoundedRectangle(cornerRadius: 10))
+                    if(al == false){
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
                 }
-                .alert(isPresented: $showAlert, content: {
-                    getAlert()
-                })
-                
-                //                            alert for exercise name conflict
-                //                            .alert(isPresented: $conflictAlert) {
-                //                               Alert(
-                //                                title: Text("Looks like this exercise name is already taken"),
-                //                                dismissButton: .default(Text("Ok got it!"))
-                //                               )
-                //                            }
-                
-                Button{
-                    showingExerciseSheet.toggle()
-                    isSelected = false
-                    isSelected2 = false
-                    exercise = ""
-                    self.presentationMode.wrappedValue.dismiss()
-                } label: {
-                    Text("Cancel")
-                        .padding(.horizontal, 100)
-                        .padding(.vertical, 15)
-                        .foregroundColor(.white)
-                        .background(.red, in: RoundedRectangle(cornerRadius: 10))
-                }
-                
-                .frame(alignment: .bottom)
-                
+                // reset control vars
+                isSelected = false
+                isSelected2 = false
+                exercise = ""
+            } label: {
+                Text("Add New Exercise")
+                    .padding(.horizontal, 58)
+                    .padding(.vertical, 15)
+                    .foregroundColor(.white)
+                    .background(background_color, in: RoundedRectangle(cornerRadius: 10))
+            }
+            .alert(isPresented: $showAlert, content: {
+                getAlert()
             })
-            .presentationDetents([.fraction(0.40)])
-        }
+
+            // Cancel button
+            Button{
+                showingExerciseSheet.toggle()
+                isSelected = false
+                isSelected2 = false
+                exercise = ""
+                self.presentationMode.wrappedValue.dismiss()
+            } label: {
+                Text("Cancel")
+                    .padding(.horizontal, 100)
+                    .padding(.vertical, 15)
+                    .foregroundColor(.white)
+                    .background(.red, in: RoundedRectangle(cornerRadius: 10))
+            }
+            .frame(alignment: .bottom)
+        })
+        .presentationDetents([.fraction(0.40)])
+    }
     //function for showing alerts
     func getAlert() -> Alert {
         return Alert(
@@ -475,14 +353,12 @@ struct Exercise_form : View{
         )
     }
     
-    // function for ceating exercise in data base
+    // function for ceating exercise in data base, returns true if name conflict
     private func addExercise(exercise_name: String, exercise_type: Int16, workout_name: String) -> Bool {
         for exercise in exercises{
             if (exercise.workout_name == workout_name && exercise.name ==  exercise_name){
                 return true
-            } //else {
-//                return conflictAlert.toggle()
-//            }
+            }
         }
         withAnimation{
             // Create new exercise object and assign data
@@ -502,4 +378,4 @@ struct Exercise_form : View{
         }
         return false
     }
-    }
+}
